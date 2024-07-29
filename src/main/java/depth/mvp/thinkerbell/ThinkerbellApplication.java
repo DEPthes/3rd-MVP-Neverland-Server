@@ -1,13 +1,13 @@
-package depth.mvp.neverland;
+package depth.mvp.thinkerbell;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NeverlandApplication {
+public class ThinkerbellApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NeverlandApplication.class, args);
+		SpringApplication.run(ThinkerbellApplication.class, args);
 	}
 
 }

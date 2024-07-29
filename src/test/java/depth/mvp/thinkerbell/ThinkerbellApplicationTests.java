@@ -1,10 +1,10 @@
-package depth.mvp.neverland;
+package depth.mvp.thinkerbell;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class NeverlandApplicationTests {
+class ThinkerbellApplicationTests {
 
 	@Test
 	void contextLoads() {
