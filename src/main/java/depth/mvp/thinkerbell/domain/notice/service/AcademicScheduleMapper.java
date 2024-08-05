@@ -1,6 +1,5 @@
 package depth.mvp.thinkerbell.domain.notice.service;
 
-import depth.mvp.thinkerbell.domain.common.entity.Univ;
 import depth.mvp.thinkerbell.domain.notice.dto.AcademicScheduleDto;
 import depth.mvp.thinkerbell.domain.notice.entity.AcademicSchedule;
 import depth.mvp.thinkerbell.global.exception.ErrorCode;
@@ -18,7 +17,7 @@ public class AcademicScheduleMapper {
 
         String schedule = academicSchedule.getSchedule();
 
-        LocalDate localDate[] = ScheduleParser.parseDate(schedule);
+        LocalDate[] localDate = ScheduleParser.parseDate(schedule);
 
         return AcademicScheduleDto.builder()
                 .id(academicSchedule.getId())
