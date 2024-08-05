@@ -6,6 +6,8 @@ import depth.mvp.thinkerbell.domain.notice.entity.AcademicSchedule;
 import depth.mvp.thinkerbell.global.exception.ErrorCode;
 import depth.mvp.thinkerbell.global.exception.MapperException;
 
+import java.time.LocalDate;
+
 public class AcademicScheduleMapper {
 
     //entity to dto
@@ -14,24 +16,17 @@ public class AcademicScheduleMapper {
             throw new MapperException(ErrorCode.INVALID_INPUT_VALUE);
         }
 
+        String schedule = academicSchedule.getSchedule();
+
+        LocalDate localDate[] = ScheduleParser.parseDate(schedule);
+
         return AcademicScheduleDto.builder()
                 .id(academicSchedule.getId())
                 .title(academicSchedule.getTitle())
-                .schedule(academicSchedule.getSchedule())
+                .startDate(localDate[0])
+                .endDate(localDate[1])
                 .univId(academicSchedule.getUniv().getId())
                 .build();
     }
 
-    //dto to entity
-    public static AcademicSchedule toEntity(AcademicScheduleDto academicScheduleDto, Univ univ) {
-        if (academicScheduleDto == null || univ == null) {
-            throw new MapperException(ErrorCode.INVALID_INPUT_VALUE);
-        }
-
-        return AcademicSchedule.builder()
-                .title(academicScheduleDto.getSchedule())
-                .schedule(academicScheduleDto.getSchedule())
-                .univ(univ)
-                .build();
-    }
 }
