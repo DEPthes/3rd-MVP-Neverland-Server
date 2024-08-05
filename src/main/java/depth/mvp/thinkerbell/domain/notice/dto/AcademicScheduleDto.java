@@ -21,5 +21,6 @@ public class AcademicScheduleDto {
         this.title = title;
         this.univId = univId;
         this.startDate = startDate;
+        this.endDate = endDate;
     }
 }
