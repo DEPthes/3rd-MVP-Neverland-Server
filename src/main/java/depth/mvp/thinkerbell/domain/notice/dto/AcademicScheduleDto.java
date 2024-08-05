@@ -15,4 +15,11 @@ public class AcademicScheduleDto {
     private LocalDate startDate;
     private LocalDate endDate;
 
+    @Builder
+    public AcademicScheduleDto(Long id, String title, Long univId, LocalDate startDate, LocalDate endDate) {
+        this.id = id;
+        this.title = title;
+        this.univId = univId;
+        this.startDate = startDate;
+    }
 }
