@@ -27,8 +27,8 @@ public class AcademicScheduleController {
     @Operation(summary = "학사 일정 조회", description = "주어진 월에 해당하는 학사 일정을 조회합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "성공적으로 조회됨"),
-            @ApiResponse(responseCode = "300", description = "잘못된 입력 값"),
-            @ApiResponse(responseCode = "400", description = "서버 오류 발생")
+            @ApiResponse(responseCode = "400", description = "잘못된 입력 값"),
+            @ApiResponse(responseCode = "500", description = "서버 오류 발생")
     })
     @GetMapping("/monthly")
     public ApiResult<List<AcademicScheduleDto>> getMonthlySchedule(
