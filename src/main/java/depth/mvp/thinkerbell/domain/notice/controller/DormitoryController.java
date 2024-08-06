@@ -1,6 +1,8 @@
 package depth.mvp.thinkerbell.domain.notice.controller;
 
+import depth.mvp.thinkerbell.domain.notice.dto.DormitoryEntryNoticeDTO;
 import depth.mvp.thinkerbell.domain.notice.dto.DormitoryNoticeDTO;
+import depth.mvp.thinkerbell.domain.notice.service.DormitoryEntryNoticeService;
 import depth.mvp.thinkerbell.domain.notice.service.DormitoryNoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,16 @@ public class DormitoryController {
     @Autowired
     private DormitoryNoticeService dormitoryNoticeService;
 
-    @GetMapping
+    @Autowired
+    private DormitoryEntryNoticeService dormitoryEntryNoticeService;
+
+    @GetMapping("/notices")
     public List<DormitoryNoticeDTO> getAllNotices() {
         return dormitoryNoticeService.getAllNotices();
+    }
+
+    @GetMapping("/entry-notices")
+    public List<DormitoryEntryNoticeDTO> getAllEntryNotices() {
+        return dormitoryEntryNoticeService.getAllEntryNotices();
     }
 }
