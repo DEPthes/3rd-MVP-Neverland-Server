@@ -1,6 +1,6 @@
 package depth.mvp.thinkerbell.global.exception;
 
-import depth.mvp.thinkerbell.global.dto.ApiResult;
+import depth.mvp.thinkerbell.global.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ApiResult<String> handleBindException(MethodArgumentNotValidException exception) {
+	public ApiResponse<String> handleBindException(MethodArgumentNotValidException exception) {
 		BindingResult bindingResult = exception.getBindingResult();
 		StringBuilder builder = new StringBuilder();
 
@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
 			builder.append("] ");
 		}
 
-		return ApiResult.withError(ErrorCode.INVALID_INPUT_VALUE, builder.toString());
+		return ApiResponse.withError(ErrorCode.INVALID_INPUT_VALUE, builder.toString());
 	}
 
 }
