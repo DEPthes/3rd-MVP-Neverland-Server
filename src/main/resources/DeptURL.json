@@ -1,0 +1,87 @@
+[
+  {
+    "school": "학교",
+    "college": "명지대학교 홈페이지",
+    "url":"https://www.mju.ac.kr/mjukr/index.do"
+  },
+  {
+  "school": "학교",
+  "college": "도서관",
+  "url":"https://lib.mju.ac.kr/"
+  },
+  {
+    "school": "학교",
+    "college": "생활관",
+    "url":"https://dorm.mju.ac.kr/dorm/index.do"
+  },
+  {
+    "school": "학교",
+    "college": "교직팀",
+    "url":"https://teaching.mju.ac.kr/teaching/index.do"
+  },
+  {
+    "school": "학교",
+    "college": "현장실습지원센터",
+    "url":"https://intern.mju.ac.kr/main.do"
+  },
+  {
+    "school": "단과대학",
+    "college": "인문대학",
+    "url":"https://humanities.mju.ac.kr/humanities/index.do"
+  },
+  {
+    "school": "단과대학",
+    "college": "사회과학대학",
+    "url":"https://www.mju.ac.kr/sites/social/index.do"
+  },
+  {
+    "school": "단과대학",
+    "college": "경영대학",
+    "url":"https://www.mju.ac.kr/sites/sba/index.do"
+  },
+  {
+    "school": "단과대학",
+    "college": "법과대학",
+    "url":"https://www.mju.ac.kr/sites/col/index.do"
+  },
+  {
+    "school": "단과대학",
+    "college": "ICT 융합대학",
+    "url":"https://www.mju.ac.kr/sites/ict/index.do"
+  },
+  {
+    "school": "단과대학",
+    "college": "미래융합대학",
+    "url":"https://www.mju.ac.kr/default"
+  },
+  {
+    "school": "단과대학",
+    "college": "자연과학대학",
+    "url":"https://www.mju.ac.kr/sites/nature/index.do"
+  },
+  {
+    "school": "단과대학",
+    "college": "공과대학",
+    "url":"https://www.mju.ac.kr/sites/eng/index.do"
+  },
+  {
+    "school": "단과대학",
+    "college": "예술체육대학",
+    "url":"https://www.mju.ac.kr/mjukr/212/subview.do"
+  },
+  {
+    "school": "단과대학",
+    "college": "건축대학",
+    "url":"https://arch.mju.ac.kr/"
+  },
+  {
+    "school": "단과대학",
+    "college": "방목기초교육대학",
+    "url":"https://www.mju.ac.kr/sites/bangmok/index.do"
+  },
+  {
+    "school": "단과대학",
+    "college": "국제학부",
+    "url":"https://global.mju.ac.kr/global/index.do"
+  }
+]
