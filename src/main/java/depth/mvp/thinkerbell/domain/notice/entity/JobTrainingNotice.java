@@ -37,6 +37,7 @@ public class JobTrainingNotice {
         this.year = year;
         this.semester = semester;
         this.period = period;
+        this.major = major;
         this.recrutingNum = recrutingNum;
         this.deadline = deadline;
         this.jobName = jobName;
