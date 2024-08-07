@@ -27,16 +27,13 @@ public class DormitoryEntryNotice extends BaseEntity {
     @JoinColumn(name = "univ_id")
     private Univ univ;
 
-    private String category;
-
     @Builder
-    public DormitoryEntryNotice(String title, String url, LocalDate pubDate, String campus, boolean isImportant, Univ univ, String category) {
+    public DormitoryEntryNotice(String title, String url, LocalDate pubDate, String campus, boolean isImportant, Univ univ) {
         this.title = title;
         this.url = url;
         this.pubDate = pubDate;
         this.campus = campus;
         this.isImportant = isImportant;
         this.univ = univ;
-        this.category = category;
     }
 }

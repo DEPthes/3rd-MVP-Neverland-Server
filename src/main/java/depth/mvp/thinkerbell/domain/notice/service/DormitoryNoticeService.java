@@ -17,7 +17,7 @@ public class DormitoryNoticeService {
     public List<DormitoryNoticeDTO> getAllNotices() {
         return dormitoryNoticeRepository.findAll().stream().map(notice -> new DormitoryNoticeDTO(
                 notice.getId(), notice.getPubDate(), notice.getTitle(), notice.getUrl(),
-                notice.isImportant(), notice.getCategory()
+                notice.isImportant(), notice.getCampus()
         )).collect(Collectors.toList());
     }
 }

@@ -13,5 +13,5 @@ public class DormitoryNoticeDTO {
     private String title;
     private String url;
     private boolean isImportant;
-    private String category;
+    private String campus;
 }
