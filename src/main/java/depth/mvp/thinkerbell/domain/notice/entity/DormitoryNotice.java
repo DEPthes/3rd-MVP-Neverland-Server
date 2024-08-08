@@ -27,6 +27,7 @@ public class DormitoryNotice extends BaseEntity {
     @JoinColumn(name = "univ_id")
     private Univ univ;
 
+
     @Builder
     public DormitoryNotice(String title, String url, LocalDate pubDate, String campus, boolean isImportant, Univ univ) {
         this.title = title;
