@@ -1,11 +1,13 @@
 package depth.mvp.thinkerbell.domain.notice.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
+@JsonInclude(JsonInclude.Include.NON_NULL)  // null인 필드는 JSON에 포함되지 않음
 public class LibraryNoticeDTO {
     private Long id;
     private LocalDate pubDate;
