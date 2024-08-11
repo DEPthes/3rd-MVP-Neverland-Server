@@ -1,5 +1,6 @@
 package depth.mvp.thinkerbell.domain.notice.controller;
 
+import depth.mvp.thinkerbell.domain.common.pagination.PaginationDTO;
 import depth.mvp.thinkerbell.domain.notice.dto.LibraryNoticeDTO;
 import depth.mvp.thinkerbell.domain.notice.service.LibraryNoticeService;
 import depth.mvp.thinkerbell.global.dto.ApiResult;
@@ -11,9 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("api/library")
@@ -30,10 +31,12 @@ public class LibraryController {
             @ApiResponse(responseCode = "500", description = "서버 오류 발생")
     })
     @GetMapping
-    public ApiResult<List<LibraryNoticeDTO>> getAllLibraryNotices() {
+    public ApiResult<PaginationDTO<LibraryNoticeDTO>> getImportantLibraryNotices(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
         try {
-            List<LibraryNoticeDTO> notices = libraryNoticeService.getAllLibraryNotices();
-            return ApiResult.ok(notices);
+            PaginationDTO<LibraryNoticeDTO> paginationDTO = libraryNoticeService.getImportantNotices(page, size);
+            return ApiResult.ok(paginationDTO);
         } catch (RuntimeException e) {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
         }
