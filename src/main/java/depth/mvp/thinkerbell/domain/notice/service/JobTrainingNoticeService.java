@@ -1,8 +1,13 @@
 package depth.mvp.thinkerbell.domain.notice.service;
 
+import depth.mvp.thinkerbell.domain.common.pagination.PaginationDTO;
 import depth.mvp.thinkerbell.domain.notice.dto.JobTrainingNoticeDTO;
+import depth.mvp.thinkerbell.domain.notice.entity.JobTrainingNotice;
 import depth.mvp.thinkerbell.domain.notice.repository.JobTrainingNoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +19,19 @@ public class JobTrainingNoticeService {
     @Autowired
     private JobTrainingNoticeRepository jobTrainingNoticeRepository;
 
-    public List<JobTrainingNoticeDTO> getAllJobTrainingNotices() {
-        return jobTrainingNoticeRepository.findAll().stream().map(notice -> new JobTrainingNoticeDTO(
-                notice.getCompany(), notice.getYear(), notice.getSemester(), notice.getPeriod(), notice.getMajor(), notice.getRecrutingNum(), notice.getDeadline(), notice.getJobName()
-        )).collect(Collectors.toList());
+    public PaginationDTO<JobTrainingNoticeDTO> getJobTrainingNotices(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<JobTrainingNotice> resultPage = jobTrainingNoticeRepository.findAll(pageable);
+
+        List<JobTrainingNoticeDTO> dtoList = resultPage.stream()
+                .map(JobTrainingNoticeDTO::fromEntity)
+                .collect(Collectors.toList());
+
+        return new PaginationDTO<>(
+                dtoList,
+                resultPage.getNumber(),
+                resultPage.getSize(),
+                resultPage.getTotalElements()
+        );
     }
 }
