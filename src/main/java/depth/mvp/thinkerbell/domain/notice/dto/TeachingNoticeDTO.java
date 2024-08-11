@@ -1,26 +1,27 @@
 package depth.mvp.thinkerbell.domain.notice.dto;
 
-import lombok.Builder;
+import depth.mvp.thinkerbell.domain.notice.entity.TeachingNotice;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 public class TeachingNoticeDTO {
     private Long id;
     private LocalDate pubDate;
     private String title;
     private String url;
-    private boolean isImportant;
+    private Boolean isImportant;
 
-    @Builder
-    public TeachingNoticeDTO(Long id, LocalDate pubDate, String title, String url, boolean isImportant) {
-        this.id = id;
-        this.pubDate = pubDate;
-        this.title = title;
-        this.url = url;
-        this.isImportant = isImportant;
+    public static TeachingNoticeDTO fromEntity(TeachingNotice notice) {
+        return new TeachingNoticeDTO(
+                notice.getId(),
+                notice.getPubDate(),
+                notice.getTitle(),
+                notice.getUrl(),
+                notice.isImportant()
+        );
     }
 }
