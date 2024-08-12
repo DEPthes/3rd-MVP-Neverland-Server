@@ -1,6 +1,5 @@
 package depth.mvp.thinkerbell.domain.notice.entity;
 
-import depth.mvp.thinkerbell.domain.common.entity.BaseEntity;
 import depth.mvp.thinkerbell.domain.common.entity.Univ;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -12,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @Table(name = "Schedule")
-public class AcademicSchedule extends BaseEntity {
+public class AcademicSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
