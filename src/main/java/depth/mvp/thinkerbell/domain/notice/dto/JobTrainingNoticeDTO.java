@@ -1,10 +1,10 @@
 package depth.mvp.thinkerbell.domain.notice.dto;
 
-import lombok.Builder;
+import depth.mvp.thinkerbell.domain.notice.entity.JobTrainingNotice;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 public class JobTrainingNoticeDTO {
     private String company;
@@ -16,15 +16,17 @@ public class JobTrainingNoticeDTO {
     private String deadline;
     private String jobName;
 
-    @Builder
-    public JobTrainingNoticeDTO(String company, String year, String semester, String period, String major, String recrutingNum, String deadline, String jobName){
-        this.company = company;
-        this.year = year;
-        this.semester = semester;
-        this.period = period;
-        this.major = major;
-        this.recrutingNum = recrutingNum;
-        this.deadline = deadline;
-        this.jobName = jobName;
+    // 엔티티를 DTO로 변환하는 정적 메서드
+    public static JobTrainingNoticeDTO fromEntity(JobTrainingNotice notice) {
+        return new JobTrainingNoticeDTO(
+                notice.getCompany(),
+                notice.getYear(),
+                notice.getSemester(),
+                notice.getPeriod(),
+                notice.getMajor(),
+                notice.getRecrutingNum(),
+                notice.getDeadline(),
+                notice.getJobName()
+        );
     }
 }

@@ -1,5 +1,6 @@
 package depth.mvp.thinkerbell.domain.notice.controller;
 
+import depth.mvp.thinkerbell.domain.common.pagination.PaginationDTO;
 import depth.mvp.thinkerbell.domain.notice.dto.TeachingNoticeDTO;
 import depth.mvp.thinkerbell.domain.notice.service.TeachingNoticeService;
 import depth.mvp.thinkerbell.global.dto.ApiResult;
@@ -11,9 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/teaching")
@@ -30,10 +30,12 @@ public class TeachingController {
             @ApiResponse(responseCode = "500", description = "서버 오류 발생")
     })
     @GetMapping
-    public ApiResult<List<TeachingNoticeDTO>> getAllTeachingNotices() {
+    public ApiResult<PaginationDTO<TeachingNoticeDTO>> getImportantTeachingNotices(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
         try {
-            List<TeachingNoticeDTO> notices = teachingNoticeService.getAllTeachingNotices();
-            return ApiResult.ok(notices);
+            PaginationDTO<TeachingNoticeDTO> paginationDTO = teachingNoticeService.getImportantNotices(page, size);
+            return ApiResult.ok(paginationDTO);
         } catch (RuntimeException e) {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
         }
