@@ -7,9 +7,11 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Immutable;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Immutable
 @Getter
 @Table(name = "All_Notices_View")
 public class AllNoticesView {
