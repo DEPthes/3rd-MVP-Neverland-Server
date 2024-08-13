@@ -1,0 +1,15 @@
+{
+  "academic_notice": "학사 공지",
+  "bidding_notice": "입철 공지",
+  "career_notice": "진로/취업/창업 공지",
+  "dormitory_entry_notice": "기숙사 입/퇴사 공지",
+  "dormitory_notice": "기숙사 공지",
+  "event_notice": "행사 공지",
+  "job_training_notice": "현장 실습 지원 공지",
+  "library_notice": "도서관 공지",
+  "normal_notice": "일반 공지",
+  "revision_notice": "학칙개정 사전공고",
+  "scholarship_notice": "장학/학자금 공지",
+  "student_acts_notice": "학생활동 공지",
+  "teaching_notice": "교직 공지"
+}
