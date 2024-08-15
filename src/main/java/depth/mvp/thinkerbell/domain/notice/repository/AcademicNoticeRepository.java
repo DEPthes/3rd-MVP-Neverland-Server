@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface AcademicNoticeRepository extends JpaRepository<AcademicNotice, Long> {
-    List<AcademicNotice> findByIsImportant(boolean isImportant);
+    List<AcademicNotice> findByImportant(boolean important);
 }

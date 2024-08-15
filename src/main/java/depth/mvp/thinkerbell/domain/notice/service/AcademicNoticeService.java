@@ -17,8 +17,8 @@ public class AcademicNoticeService {
         this.academicNoticeRepository = academicNoticeRepository;
     }
 
-    public List<AcademicNoticeDTO> getAllAcademicNotices(boolean isImportant) throws NotFoundException {
-        List<AcademicNotice> notices = academicNoticeRepository.findByIsImportant(isImportant);
+    public List<AcademicNoticeDTO> getAllAcademicNotices(boolean important) throws NotFoundException {
+        List<AcademicNotice> notices = academicNoticeRepository.findByImportant(important);
         if (notices == null || notices.isEmpty()) {
             throw new NotFoundException("저장된 공지사항이 없습니다.");
         }

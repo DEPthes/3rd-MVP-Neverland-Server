@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface NormalNoticeRepository  extends JpaRepository<NormalNotice, Long> {
-    List<NormalNotice> findByIsImportant(boolean isImportant);
+    List<NormalNotice> findByImportant(boolean important);
 }

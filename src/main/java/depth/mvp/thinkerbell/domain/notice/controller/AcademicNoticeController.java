@@ -29,10 +29,10 @@ public class AcademicNoticeController {
             @ApiResponse(responseCode = "400", description = "잘못된 입력 값"),
             @ApiResponse(responseCode = "500", description = "서버 오류 발생")
     })
-    @GetMapping("/{isImportant}")
-    public ApiResult<List<AcademicNoticeDTO>> getAllAcademicNotices(@PathVariable("isImportant") boolean isImportant) {
+    @GetMapping("/{important}")
+    public ApiResult<List<AcademicNoticeDTO>> getAllAcademicNotices(@PathVariable("important") boolean important) {
         try {
-            List<AcademicNoticeDTO> notices = academicNoticeService.getAllAcademicNotices(isImportant);
+            List<AcademicNoticeDTO> notices = academicNoticeService.getAllAcademicNotices(important);
             return ApiResult.ok(notices);
         } catch (RuntimeException e) {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);

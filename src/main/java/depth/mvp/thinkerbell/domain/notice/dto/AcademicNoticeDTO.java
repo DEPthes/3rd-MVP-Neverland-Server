@@ -13,14 +13,14 @@ public class AcademicNoticeDTO {
     private LocalDate pubDate;
     private String title;
     private String url;
-    private boolean isImportant;
+    private boolean important;
 
     @Builder
-    public AcademicNoticeDTO(Long id, LocalDate pubDate, String title, String url, boolean isImportant) {
+    public AcademicNoticeDTO(Long id, LocalDate pubDate, String title, String url, boolean important) {
         this.id = id;
         this.pubDate = pubDate;
         this.title = title;
         this.url = url;
-        this.isImportant = isImportant;
+        this.important = important;
     }
 }
