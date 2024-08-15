@@ -16,16 +16,16 @@ public class Bookmark {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long noticeID;
-    private String noticeType;
+    private String category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Builder
-    public Bookmark(Long noticeID, String noticeType, User user) {
+    public Bookmark(Long noticeID, String category, User user) {
         this.noticeID = noticeID;
-        this.noticeType = noticeType;
+        this.category = category;
         this.user = user;
     }
 }
