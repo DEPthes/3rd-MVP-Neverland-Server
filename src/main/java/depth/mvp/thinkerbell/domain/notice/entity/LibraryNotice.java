@@ -23,17 +23,20 @@ public class LibraryNotice extends BaseEntity {
 
     private String campus;
 
+    private boolean isImportant;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "univ_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Univ univ;
 
     @Builder
-    public LibraryNotice(String title, String url, LocalDate pubDate, String campus, Univ univ) {
+    public LibraryNotice(String title, String url, LocalDate pubDate, String campus, boolean isImportant,  Univ univ) {
         this.title = title;
         this.url = url;
         this.pubDate = pubDate;
         this.campus = campus;
+        this.isImportant = isImportant;
         this.univ = univ;
     }
 }
