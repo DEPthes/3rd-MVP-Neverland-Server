@@ -17,8 +17,8 @@ public class NormalNoticeService {
         this.normalNoticeRepository = normalNoticeRepository;
     }
 
-    public List<NormalNoticeDTO> getAllNormalNotices(boolean isImportant) throws NotFoundException {
-        List<NormalNotice> notices = normalNoticeRepository.findByIsImportant(isImportant);
+    public List<NormalNoticeDTO> getAllNormalNotices(boolean important) throws NotFoundException {
+        List<NormalNotice> notices = normalNoticeRepository.findByImportant(important);
         if (notices == null || notices.isEmpty()) {
             throw new NotFoundException("저장된 공지사항이 없습니다.");
         }

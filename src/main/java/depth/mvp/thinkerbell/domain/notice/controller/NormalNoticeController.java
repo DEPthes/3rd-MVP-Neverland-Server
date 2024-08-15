@@ -29,10 +29,10 @@ public class NormalNoticeController {
             @ApiResponse(responseCode = "400", description = "잘못된 입력 값"),
             @ApiResponse(responseCode = "500", description = "서버 오류 발생")
     })
-    @GetMapping("/{isImportant}")
-    public ApiResult<List<NormalNoticeDTO>> getAllNormalNotices(@PathVariable("isImportant") boolean isImportant) {
+    @GetMapping("/{important}")
+    public ApiResult<List<NormalNoticeDTO>> getAllNormalNotices(@PathVariable("important") boolean important) {
         try {
-            List<NormalNoticeDTO> notices = normalNoticeService.getAllNormalNotices(isImportant);
+            List<NormalNoticeDTO> notices = normalNoticeService.getAllNormalNotices(important);
             return ApiResult.ok(notices);
         } catch (RuntimeException e) {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
