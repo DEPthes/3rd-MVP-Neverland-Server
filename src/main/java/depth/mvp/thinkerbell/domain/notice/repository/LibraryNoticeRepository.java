@@ -13,6 +13,9 @@ public interface LibraryNoticeRepository extends JpaRepository<LibraryNotice, Lo
     @Query("SELECT n FROM LibraryNotice n WHERE n.title LIKE CONCAT('%', :keyword, '%')")
     List<LibraryNotice> searchByTitle(@Param("keyword") String keyword);
 
-    Page<LibraryNotice> findAllByOrderByImportantDescPubDateDesc(Pageable pageable);
+    // 중요 공지사항을 가져오는 메서드
+    List<LibraryNotice> findAllByImportantTrueOrderByPubDateDesc();
 
+    // 중요하지 않은 공지사항을 페이지네이션하여 가져오는 메서드
+    Page<LibraryNotice> findAllByImportantFalseOrderByPubDateDesc(Pageable pageable);
 }

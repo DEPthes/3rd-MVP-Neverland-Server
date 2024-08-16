@@ -23,7 +23,7 @@ public class LibraryNotice extends BaseEntity {
 
     private String campus;
 
-    private boolean isImportant;
+    private boolean important;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "univ_id")
@@ -31,12 +31,12 @@ public class LibraryNotice extends BaseEntity {
     private Univ univ;
 
     @Builder
-    public LibraryNotice(String title, String url, LocalDate pubDate, String campus, boolean isImportant,  Univ univ) {
+    public LibraryNotice(String title, String url, LocalDate pubDate, String campus, boolean important,  Univ univ) {
         this.title = title;
         this.url = url;
         this.pubDate = pubDate;
         this.campus = campus;
-        this.isImportant = isImportant;
+        this.important = important;
         this.univ = univ;
     }
 }

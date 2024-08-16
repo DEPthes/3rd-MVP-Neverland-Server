@@ -13,5 +13,9 @@ public interface TeachingNoticeRepository extends JpaRepository<TeachingNotice, 
     @Query("SELECT n FROM TeachingNotice n WHERE n.title LIKE CONCAT('%', :keyword, '%')")
     List<TeachingNotice> searchByTitle(@Param("keyword") String keyword);
 
-    Page<TeachingNotice> findAllByOrderByImportantDescPubDateDesc(Pageable pageable);
+    // 모든 중요 공지사항을 가져오는 메서드
+    List<TeachingNotice> findAllByImportantTrueOrderByPubDateDesc();
+
+    // 중요하지 않은 공지사항을 페이지네이션하여 가져오는 메서드
+    Page<TeachingNotice> findAllByImportantFalseOrderByPubDateDesc(Pageable pageable);
 }
