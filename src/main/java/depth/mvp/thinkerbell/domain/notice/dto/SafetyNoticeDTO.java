@@ -13,11 +13,13 @@ public class SafetyNoticeDTO {
     private LocalDate pubDate;
     private String title;
     private String url;
+    private boolean marked;
     @Builder
-    public SafetyNoticeDTO(Long id, LocalDate pubDate, String title, String url) {
+    public SafetyNoticeDTO(Long id, LocalDate pubDate, String title, boolean marked, String url) {
         this.id = id;
         this.pubDate = pubDate;
         this.title = title;
         this.url = url;
+        this.marked = marked;
     }
 }
