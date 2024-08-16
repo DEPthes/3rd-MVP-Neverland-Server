@@ -20,17 +20,17 @@ public class TeachingNotice extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean isImportant;
+    private boolean important;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "univ_id")
     private Univ univ;
 
     @Builder
-    public TeachingNotice(String title, String url, LocalDate pubDate, boolean isImportant, Univ univ) {
+    public TeachingNotice(String title, String url, LocalDate pubDate, boolean important, Univ univ) {
         this.title = title;
         this.url = url;
         this.pubDate = pubDate;
-        this.isImportant = isImportant;
+        this.important = important;
         this.univ = univ;
     }
 }

@@ -13,6 +13,6 @@ public interface DormitoryNoticeRepository extends JpaRepository<DormitoryNotice
     @Query("SELECT n FROM DormitoryNotice n WHERE n.title LIKE CONCAT('%', :keyword, '%')")
     List<DormitoryNotice> searchByTitle(@Param("keyword") String keyword);
 
-    Page<DormitoryNotice> findAllByOrderByIsImportantDescPubDateDesc(Pageable pageable);
+    Page<DormitoryNotice> findAllByOrderByImportantDescPubDateDesc(Pageable pageable);
 
 }

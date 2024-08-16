@@ -23,7 +23,8 @@ public class DormitoryNotice extends BaseEntity {
 
     private String campus;
 
-    private boolean isImportant;
+    private boolean important;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "univ_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -31,12 +32,12 @@ public class DormitoryNotice extends BaseEntity {
 
 
     @Builder
-    public DormitoryNotice(String title, String url, LocalDate pubDate, String campus, boolean isImportant, Univ univ) {
+    public DormitoryNotice(String title, String url, LocalDate pubDate, String campus, boolean important, Univ univ) {
         this.title = title;
         this.url = url;
         this.pubDate = pubDate;
         this.campus = campus;
-        this.isImportant = isImportant;
+        this.important = important;
         this.univ = univ;
     }
 }

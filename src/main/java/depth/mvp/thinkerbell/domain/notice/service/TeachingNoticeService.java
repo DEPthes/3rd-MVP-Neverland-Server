@@ -21,7 +21,7 @@ public class TeachingNoticeService {
 
     public PaginationDTO<TeachingNoticeDTO> getImportantNotices(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<TeachingNotice> resultPage = teachingNoticeRepository.findAllByOrderByIsImportantDescPubDateDesc(pageable);
+        Page<TeachingNotice> resultPage = teachingNoticeRepository.findAllByOrderByImportantDescPubDateDesc(pageable);
 
         List<TeachingNoticeDTO> dtoList = resultPage.stream()
                 .map(TeachingNoticeDTO::fromEntity)  // DTO 클래스 내의 메서드 호출

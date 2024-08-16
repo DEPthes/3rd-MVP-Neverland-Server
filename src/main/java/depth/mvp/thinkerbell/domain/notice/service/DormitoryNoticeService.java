@@ -28,7 +28,7 @@ public class DormitoryNoticeService {
 
     public PaginationDTO<DormitoryNoticeDTO> getImportantNotices(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<DormitoryNotice> resultPage = dormitoryNoticeRepository.findAllByOrderByIsImportantDescPubDateDesc(pageable);
+        Page<DormitoryNotice> resultPage = dormitoryNoticeRepository.findAllByOrderByImportantDescPubDateDesc(pageable);
 
         List<DormitoryNoticeDTO> dtoList = resultPage.stream()
                 .map(DormitoryNoticeDTO::fromEntity)  // DTO 클래스 내의 메서드 호출
