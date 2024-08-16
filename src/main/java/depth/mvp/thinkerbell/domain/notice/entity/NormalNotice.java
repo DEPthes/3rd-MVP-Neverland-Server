@@ -19,19 +19,19 @@ public class NormalNotice extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private boolean isImportant;
+    @Column(name = "is_important")
+    private boolean important;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "univ_id")
     private Univ univ;
 
     @Builder
-    public NormalNotice(String title, String url, LocalDate pubDate, boolean isImportant, Univ univ) {
+    public NormalNotice(String title, String url, LocalDate pubDate, boolean important, Univ univ) {
         this.title = title;
         this.url = url;
         this.pubDate = pubDate;
-        this.isImportant = isImportant;
+        this.important = important;
         this.univ = univ;
     }
 }
