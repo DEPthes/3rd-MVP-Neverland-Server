@@ -122,7 +122,7 @@ public class NoticeSearchService {
                         notice.getPubDate(),
                         notice.getTitle(),
                         notice.getUrl(),
-                        false
+                        null
                 )).collect(Collectors.toList());
 
         if (!normalNotices.isEmpty()) {
@@ -137,7 +137,7 @@ public class NoticeSearchService {
                         notice.getPubDate(),
                         notice.getTitle(),
                         notice.getUrl(),
-                        false
+                        null
                 )).collect(Collectors.toList());
 
         if (!academicNotices.isEmpty()) {
