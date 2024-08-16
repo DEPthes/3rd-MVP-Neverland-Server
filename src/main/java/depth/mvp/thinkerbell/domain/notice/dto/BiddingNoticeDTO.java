@@ -13,11 +13,14 @@ public class BiddingNoticeDTO {
     private LocalDate pubDate;
     private String title;
     private String url;
+    private boolean marked;
+
     @Builder
-    public BiddingNoticeDTO(Long id, LocalDate pubDate, String title, String url) {
+    public BiddingNoticeDTO(Long id, LocalDate pubDate, String title, boolean marked, String url) {
         this.id = id;
         this.pubDate = pubDate;
         this.title = title;
         this.url = url;
+        this.marked = marked;
     }
 }
