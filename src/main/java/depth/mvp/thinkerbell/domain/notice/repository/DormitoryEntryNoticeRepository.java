@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DormitoryEntryNoticeRepository extends JpaRepository<DormitoryEntryNotice, Long> {
-    Page<DormitoryEntryNotice> findAllByOrderByIsImportantDescPubDateDesc(Pageable pageable);
+    Page<DormitoryEntryNotice> findAllByOrderByImportantDescPubDateDesc(Pageable pageable);
 }
