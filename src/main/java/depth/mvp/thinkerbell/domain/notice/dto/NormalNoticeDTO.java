@@ -13,14 +13,16 @@ public class NormalNoticeDTO {
     private LocalDate pubDate;
     private String title;
     private String url;
+    private boolean marked;
     private boolean important;
 
     @Builder
-    public NormalNoticeDTO(Long id, LocalDate pubDate, String title, String url, boolean important) {
+    public NormalNoticeDTO(Long id, LocalDate pubDate, String title, String url, boolean marked, boolean important) {
         this.id = id;
         this.pubDate = pubDate;
         this.title = title;
         this.url = url;
+        this.marked = marked;
         this.important = important;
     }
 }
