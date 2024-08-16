@@ -25,9 +25,9 @@ public class BookmarkController {
     @PostMapping("")
     public ApiResult<?> saveBookmark(@RequestParam("category") String category,
                                      @RequestParam("notice-id") Long noticeId,
-                                     @RequestParam("user-id") Long userId) {
+                                     @RequestParam("ssaid") String ssaid) {
         try {
-            bookmarkService.saveBookmark(category, noticeId, userId);
+            bookmarkService.saveBookmark(category, noticeId, ssaid);
             return ApiResult.ok("성공적으로 저장됨");
         } catch (RuntimeException e) {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
@@ -43,9 +43,9 @@ public class BookmarkController {
     @DeleteMapping("")
     public ApiResult<?> deleteBookmark(@RequestParam("category") String category,
                                      @RequestParam("notice-id") Long noticeId,
-                                     @RequestParam("user-id") Long userId) {
+                                     @RequestParam("ssaid") String ssaid) {
         try {
-            bookmarkService.deleteBookmark(category, noticeId, userId);
+            bookmarkService.deleteBookmark(category, noticeId, ssaid);
             return ApiResult.ok("성공적으로 삭제됨");
         } catch (RuntimeException e) {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
