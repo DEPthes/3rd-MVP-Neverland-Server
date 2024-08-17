@@ -100,6 +100,7 @@ public class NoticeSearchService {
         List<JobTrainingNoticeDTO> jobTrainingNotices = jobTrainingNoticeRepository.searchByTitleOrMajor(keyword)
                 .stream()
                 .map(notice -> new JobTrainingNoticeDTO(
+                        notice.getId(),
                         notice.getCompany(),
                         notice.getYear(),
                         notice.getSemester(),

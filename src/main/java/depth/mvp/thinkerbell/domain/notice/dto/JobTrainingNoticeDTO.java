@@ -7,6 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class JobTrainingNoticeDTO {
+    private Long id;
+
     private String company;
     private String year;
     private String semester;
@@ -19,6 +21,7 @@ public class JobTrainingNoticeDTO {
     // 엔티티를 DTO로 변환하는 정적 메서드
     public static JobTrainingNoticeDTO fromEntity(JobTrainingNotice notice) {
         return new JobTrainingNoticeDTO(
+                notice.getId(),
                 notice.getCompany(),
                 notice.getYear(),
                 notice.getSemester(),
