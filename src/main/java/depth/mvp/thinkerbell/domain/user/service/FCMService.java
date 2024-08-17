@@ -6,6 +6,8 @@ import depth.mvp.thinkerbell.domain.user.entity.Alarm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class FCMService {
@@ -21,17 +23,14 @@ public class FCMService {
                     keyword, category, cutTitle);
 
             Message message = Message.builder()
-                    .setAndroidConfig(AndroidConfig.builder()
-                            .setNotification(AndroidNotification.builder()
-                                    .setTitle("띵커벨")
-                                    .setBody(messageBody)
-                                    .build())
-                            .build())
+                    .putData("title", "띵커벨")
+                    .putData("body", messageBody)
+                    .putData("notification_id", UUID.randomUUID().toString()) // 고유한 ID
                     .setToken(alarm.getUser().getFcmToken())
                     .build();
 
-            String responce = FirebaseMessaging.getInstance().send(message);
-            System.out.println("전송 성공" + responce);
+            String response = FirebaseMessaging.getInstance().send(message);
+            System.out.println("전송 성공" + response);
         } catch (Exception e){
             throw new RuntimeException("FCM 알림을 전송하는 동안 오류가 발생했습니다.",e);
         }
