@@ -33,9 +33,10 @@ public class LibraryController {
     @GetMapping
     public ApiResult<PaginationDTO<LibraryNoticeDTO>> getImportantLibraryNotices(
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size) {
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam("ssaid") String ssaid) {
         try {
-            PaginationDTO<LibraryNoticeDTO> paginationDTO = libraryNoticeService.getImportantNotices(page, size);
+            PaginationDTO<LibraryNoticeDTO> paginationDTO = libraryNoticeService.getImportantNotices(page, size, ssaid);
             return ApiResult.ok(paginationDTO);
         } catch (RuntimeException e) {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
