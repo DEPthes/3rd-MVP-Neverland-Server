@@ -1,5 +1,6 @@
 package depth.mvp.thinkerbell.domain.notice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import depth.mvp.thinkerbell.domain.common.entity.BaseEntity;
 import depth.mvp.thinkerbell.domain.common.entity.Univ;
 import jakarta.persistence.*;
@@ -25,6 +26,7 @@ public class DormitoryEntryNotice extends BaseEntity {
     private boolean important;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "univ_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Univ univ;
 
     @Builder
