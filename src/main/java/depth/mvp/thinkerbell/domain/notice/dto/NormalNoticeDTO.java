@@ -1,6 +1,5 @@
 package depth.mvp.thinkerbell.domain.notice.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,6 @@ import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class NormalNoticeDTO {
     private Long id;
     private LocalDate pubDate;
