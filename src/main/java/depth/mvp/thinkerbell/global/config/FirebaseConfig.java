@@ -14,12 +14,15 @@ public class FirebaseConfig {
 
     @Bean
     public FirebaseApp firebaseApp() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream("src/main/resources/firebase/neverland-thinkerbell-firebase-adminsdk-n4ik2-49baee872c.json");
+        if (FirebaseApp.getApps().isEmpty()) {
+            FileInputStream serviceAccount = new FileInputStream("src/main/resources/firebase/neverland-thinkerbell-firebase-adminsdk-n4ik2-49baee872c.json");
 
-        FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .build();
-
-        return FirebaseApp.initializeApp(options);
+            FirebaseOptions options = FirebaseOptions.builder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .build();
+            return FirebaseApp.initializeApp(options);
+        } else {
+            return FirebaseApp.getInstance();
+        }
     }
 }
