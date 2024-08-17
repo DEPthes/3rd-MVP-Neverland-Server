@@ -1,9 +1,11 @@
 package depth.mvp.thinkerbell.domain.notice.service;
 
 import depth.mvp.thinkerbell.domain.common.pagination.PaginationDTO;
+import depth.mvp.thinkerbell.domain.notice.dto.DormitoryNoticeDTO;
 import depth.mvp.thinkerbell.domain.notice.dto.TeachingNoticeDTO;
 import depth.mvp.thinkerbell.domain.notice.entity.TeachingNotice;
 import depth.mvp.thinkerbell.domain.notice.repository.TeachingNoticeRepository;
+import depth.mvp.thinkerbell.domain.user.service.BookmarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class TeachingNoticeService {
-
+    private final BookmarkService bookmarkService;
     @Autowired
     private TeachingNoticeRepository teachingNoticeRepository;
 

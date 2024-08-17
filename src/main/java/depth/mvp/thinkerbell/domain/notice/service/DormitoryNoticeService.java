@@ -4,6 +4,7 @@ import depth.mvp.thinkerbell.domain.common.pagination.PaginationDTO;
 import depth.mvp.thinkerbell.domain.notice.dto.DormitoryNoticeDTO;
 import depth.mvp.thinkerbell.domain.notice.entity.DormitoryNotice;
 import depth.mvp.thinkerbell.domain.notice.repository.DormitoryNoticeRepository;
+import depth.mvp.thinkerbell.domain.user.service.BookmarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class DormitoryNoticeService {
-
+    private final BookmarkService bookmarkService;
     @Autowired
     private DormitoryNoticeRepository dormitoryNoticeRepository;
 
