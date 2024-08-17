@@ -41,8 +41,8 @@ public class NoticeSearchService {
                         notice.getPubDate(),
                         notice.getTitle(),
                         notice.getUrl(),
-                        null,
-                        null
+                        notice.isImportant(),
+                        notice.getCampus()
                 )).collect(Collectors.toList());
 
         if (!dormitoryEntryNotices.isEmpty()) {
@@ -57,8 +57,8 @@ public class NoticeSearchService {
                         notice.getPubDate(),
                         notice.getTitle(),
                         notice.getUrl(),
-                        null,
-                        null
+                        notice.isImportant(),
+                        notice.getCampus()
                 )).collect(Collectors.toList());
 
         if (!dormitoryNotices.isEmpty()) {
@@ -73,8 +73,8 @@ public class NoticeSearchService {
                         notice.getPubDate(),
                         notice.getTitle(),
                         notice.getUrl(),
-                        null,
-                        null
+                        notice.isImportant(),
+                        notice.getCampus()
                 )).collect(Collectors.toList());
 
         if (!libraryNotices.isEmpty()) {
@@ -89,7 +89,7 @@ public class NoticeSearchService {
                         notice.getPubDate(),
                         notice.getTitle(),
                         notice.getUrl(),
-                        null
+                        notice.isImportant()
                 )).collect(Collectors.toList());
 
         if (!teachingNotices.isEmpty()) {
@@ -122,7 +122,7 @@ public class NoticeSearchService {
                         notice.getPubDate(),
                         notice.getTitle(),
                         notice.getUrl(),
-                        null
+                        notice.isImportant()
                 )).collect(Collectors.toList());
 
         if (!normalNotices.isEmpty()) {
@@ -137,7 +137,7 @@ public class NoticeSearchService {
                         notice.getPubDate(),
                         notice.getTitle(),
                         notice.getUrl(),
-                        null
+                        notice.isImportant()
                 )).collect(Collectors.toList());
 
         if (!academicNotices.isEmpty()) {

@@ -15,10 +15,10 @@ public class AcademicNoticeDTO {
     private LocalDate pubDate;
     private String title;
     private String url;
-    private Boolean important;
+    private boolean important;
 
     @Builder
-    public AcademicNoticeDTO(Long id, LocalDate pubDate, String title, String url, Boolean important) {
+    public AcademicNoticeDTO(Long id, LocalDate pubDate, String title, String url, boolean important) {
         this.id = id;
         this.pubDate = pubDate;
         this.title = title;

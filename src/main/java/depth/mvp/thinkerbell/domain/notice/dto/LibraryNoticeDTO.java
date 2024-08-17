@@ -14,7 +14,7 @@ public class LibraryNoticeDTO {
     private LocalDate pubDate;
     private String title;
     private String url;
-    private Boolean important;
+    private boolean important;
     private String campus;
 
     // 엔티티를 DTO로 변환하는 정적 메서드

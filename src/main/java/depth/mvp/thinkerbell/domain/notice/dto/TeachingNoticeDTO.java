@@ -13,7 +13,7 @@ public class TeachingNoticeDTO {
     private LocalDate pubDate;
     private String title;
     private String url;
-    private Boolean important;
+    private boolean important;
 
     public static TeachingNoticeDTO fromEntity(TeachingNotice notice) {
         return new TeachingNoticeDTO(
