@@ -32,9 +32,10 @@ public class TeachingController {
     @GetMapping
     public ApiResult<PaginationDTO<TeachingNoticeDTO>> getImportantTeachingNotices(
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size) {
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam("ssaid") String ssaid) {
         try {
-            PaginationDTO<TeachingNoticeDTO> paginationDTO = teachingNoticeService.getImportantNotices(page, size);
+            PaginationDTO<TeachingNoticeDTO> paginationDTO = teachingNoticeService.getImportantNotices(page, size, ssaid);
             return ApiResult.ok(paginationDTO);
         } catch (RuntimeException e) {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
