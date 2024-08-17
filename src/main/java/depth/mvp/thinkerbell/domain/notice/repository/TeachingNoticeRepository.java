@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TeachingNoticeRepository extends JpaRepository<TeachingNotice, Long> {
-    Page<TeachingNotice> findAllByOrderByIsImportantDescPubDateDesc(Pageable pageable);
+    Page<TeachingNotice> findAllByOrderByImportantDescPubDateDesc(Pageable pageable);
 }
