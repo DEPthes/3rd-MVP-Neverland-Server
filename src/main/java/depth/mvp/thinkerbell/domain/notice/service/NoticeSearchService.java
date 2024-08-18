@@ -25,6 +25,7 @@ public class NoticeSearchService {
     private final NormalNoticeRepository normalNoticeRepository;
     private final AcademicNoticeRepository academicNoticeRepository;
     private final EventNoticeRepository eventNoticeRepository;
+    private final CareerNoticeRepository careerNoticeRepository;
     private final ScholarshipNoticeRepository scholarshipNoticeRepository;
     private final StudentActsNoticeRepository studentActsNoticeRepository;
     private final BiddingNoticeRepository biddingNoticeRepository;
@@ -37,6 +38,7 @@ public class NoticeSearchService {
         // USER가 북마크한 내역(id리스트) 가져오기
         List<Long> bookmarkedNoticeIds = bookmarkService.getBookmark(ssaid,
                 this.getClass().getSimpleName().replace("Service", ""));
+
         // DormitoryEntryNotice 검색 및 DTO 변환
         List<DormitoryEntryNoticeDTO> dormitoryEntryNotices = dormitoryEntryNoticeRepository.searchByTitle(keyword)
                 .stream()
@@ -55,7 +57,7 @@ public class NoticeSearchService {
                 })
                 .collect(Collectors.toList());
         if (!dormitoryEntryNotices.isEmpty()) {
-            result.put("dormitoryEntryNotices", dormitoryEntryNotices);
+            result.put("DormitoryEntryNotice", dormitoryEntryNotices);
         }
 
         // DormitoryNotice 검색 및 DTO 변환
@@ -77,7 +79,7 @@ public class NoticeSearchService {
                 .collect(Collectors.toList());
 
         if (!dormitoryNotices.isEmpty()) {
-            result.put("dormitoryNotices", dormitoryNotices);
+            result.put("DormitoryNotice", dormitoryNotices);
         }
 
         // LibraryNotice 검색 및 DTO 변환
@@ -99,7 +101,7 @@ public class NoticeSearchService {
                 .collect(Collectors.toList());
 
         if (!libraryNotices.isEmpty()) {
-            result.put("libraryNotices", libraryNotices);
+            result.put("LibraryNotice", libraryNotices);
         }
 
        //  TeachingNotice 검색 및 DTO 변환
@@ -120,10 +122,10 @@ public class NoticeSearchService {
                 .collect(Collectors.toList());
 
         if (!teachingNotices.isEmpty()) {
-            result.put("teachingNotices", teachingNotices);
+            result.put("TeachingNotice", teachingNotices);
         }
 
-        // JobTraingingNotice 검색 및 DTO 변환
+        // JobTrainingNotice 검색 및 DTO 변환
         List<JobTrainingNoticeDTO> jobTrainingNotices = jobTrainingNoticeRepository.searchByTitleOrMajor(keyword)
                 .stream()
                 .map(notice -> {
@@ -144,7 +146,7 @@ public class NoticeSearchService {
                 .collect(Collectors.toList());
 
         if (!jobTrainingNotices.isEmpty()) {
-            result.put("jobTrainingNotices", jobTrainingNotices);
+            result.put("JobTrainingNotice", jobTrainingNotices);
         }
 
         // NormalNotice 검색 및 DTO 변환
@@ -163,7 +165,7 @@ public class NoticeSearchService {
                             .build();
                 }).collect(Collectors.toList());
         if (!normalNotices.isEmpty()) {
-            result.put("normalNotices", normalNotices);
+            result.put("NormalNotice", normalNotices);
         }
 
         // AcademicNotice 검색 및 DTO 변환
@@ -183,10 +185,10 @@ public class NoticeSearchService {
                 }).collect(Collectors.toList());
 
         if (!academicNotices.isEmpty()) {
-            result.put("academicNotices", academicNotices);
+            result.put("AcademicNotice", academicNotices);
         }
 
-        // EventNotices 검색 및 DTO 변환
+        // EventNotice 검색 및 DTO 변환
         List<EventNoticeDTO> eventNotices = eventNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
@@ -202,7 +204,7 @@ public class NoticeSearchService {
                 }).collect(Collectors.toList());
 
         if (!eventNotices.isEmpty()) {
-            result.put("eventNotices", eventNotices);
+            result.put("EventNotice", eventNotices);
         }
 
         // CareerNotice 검색 및 DTO 변환
@@ -240,10 +242,10 @@ public class NoticeSearchService {
                 }).collect(Collectors.toList());
 
         if (!scholarshipNotices.isEmpty()) {
-            result.put("scholarshipNotices", scholarshipNotices);
+            result.put("ScholarshipNotices", scholarshipNotices);
         }
 
-        // StudentActsNotices 검색 및 DTO 변환
+        // StudentActsNotice 검색 및 DTO 변환
         List<StudentActsNoticeDTO> studentActsNotices = studentActsNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
@@ -258,11 +260,11 @@ public class NoticeSearchService {
                             .build();
                 }).collect(Collectors.toList());
 
-        // BiddingNotices 검색 및 DTO 변환
         if (!studentActsNotices.isEmpty()) {
             result.put("StudentActsNotice", studentActsNotices);
         }
 
+        // BiddingNotice 검색 및 DTO 변환
         List<BiddingNoticeDTO> biddingNotices = biddingNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
@@ -278,10 +280,10 @@ public class NoticeSearchService {
                 }).collect(Collectors.toList());
 
         if (!biddingNotices.isEmpty()) {
-            result.put("biddingNotices", biddingNotices);
+            result.put("BiddingNotice", biddingNotices);
         }
 
-        // SafetyNotices 검색 및 DTO 변환
+        // SafetyNotice 검색 및 DTO 변환
         List<SafetyNoticeDTO> safetyNotices = safetyNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
@@ -297,10 +299,10 @@ public class NoticeSearchService {
                 }).collect(Collectors.toList());
 
         if (!safetyNotices.isEmpty()) {
-            result.put("safetyNotices", safetyNotices);
+            result.put("SafetyNotice", safetyNotices);
         }
 
-        // RevisionNotices 검색 및 DTO 변환
+        // RevisionNotice 검색 및 DTO 변환
         List<RevisionNoticeDTO> revisionNotices = revisionNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
@@ -316,7 +318,7 @@ public class NoticeSearchService {
                 }).collect(Collectors.toList());
 
         if (!revisionNotices.isEmpty()) {
-            result.put("revisionNotices", revisionNotices);
+            result.put("RevisionNotice", revisionNotices);
         }
 
         return result;
