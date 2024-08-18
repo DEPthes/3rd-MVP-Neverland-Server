@@ -1,5 +1,6 @@
-package depth.mvp.thinkerbell.domain.notice;
+package depth.mvp.thinkerbell.domain.notice.controller;
 
+import depth.mvp.thinkerbell.domain.notice.service.NoticeSearchService;
 import depth.mvp.thinkerbell.global.dto.ApiResult;
 import depth.mvp.thinkerbell.global.exception.ErrorCode;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,9 +29,10 @@ public class NoticeSearchController {
             @ApiResponse(responseCode = "500", description = "서버 오류 발생")
     })
     @GetMapping("/search")
-    public ApiResult<Map<String, List<?>>> searchNotices(@RequestParam String keyword) {
+    public ApiResult<Map<String, List<?>>> searchNotices(@RequestParam String keyword,
+                                                         @RequestParam String ssaid) {
         try {
-            Map<String, List<?>> notices = noticeSearchService.searchNotices(keyword);
+            Map<String, List<?>> notices = noticeSearchService.searchNotices(keyword, ssaid);
             return ApiResult.ok(notices);
         } catch (RuntimeException e) {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
