@@ -20,15 +20,4 @@ public class DormitoryEntryNoticeDTO {
     private boolean important;
     private String campus;
 
-    // 엔티티를 DTO로 변환하는 정적 메서드
-//    public static DormitoryEntryNoticeDTO fromEntity(DormitoryEntryNotice notice) {
-//        return new DormitoryEntryNoticeDTO(
-//                notice.getId(),
-//                notice.getPubDate(),
-//                notice.getTitle(),
-//                notice.getUrl(),
-//                notice.isImportant(),
-//                notice.getCampus()
-//        );
-//    }
 }

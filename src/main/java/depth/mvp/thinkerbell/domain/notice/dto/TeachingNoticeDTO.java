@@ -17,14 +17,5 @@ public class TeachingNoticeDTO {
     private String url;
     private boolean marked;
     private boolean important;
-
-//    public static TeachingNoticeDTO fromEntity(TeachingNotice notice) {
-//        return new TeachingNoticeDTO(
-//                notice.getId(),
-//                notice.getPubDate(),
-//                notice.getTitle(),
-//                notice.getUrl(),
-//                notice.isImportant()
-//        );
-//    }
+    
 }
