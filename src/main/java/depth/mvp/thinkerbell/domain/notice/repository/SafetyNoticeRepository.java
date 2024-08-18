@@ -13,4 +13,6 @@ import java.util.List;
 public interface SafetyNoticeRepository extends JpaRepository<SafetyNotice, Long> {
     @Query("SELECT n FROM SafetyNotice n WHERE n.title LIKE CONCAT('%', :keyword, '%')")
     List<SafetyNotice> searchByTitle(@Param("keyword") String keyword);
+
+    SafetyNotice findOneById(Long noticeID);
 }

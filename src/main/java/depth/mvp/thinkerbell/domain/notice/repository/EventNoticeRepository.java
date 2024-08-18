@@ -12,4 +12,6 @@ import java.util.List;
 public interface EventNoticeRepository extends JpaRepository<EventNotice, Long> {
     @Query("SELECT n FROM EventNotice n WHERE n.title LIKE CONCAT('%', :keyword, '%')")
     List<EventNotice> searchByTitle(@Param("keyword") String keyword);
+
+    EventNotice findOneById(Long noticeID);
 }

@@ -14,4 +14,6 @@ public interface AcademicNoticeRepository extends JpaRepository<AcademicNotice, 
 
     @Query("SELECT n FROM AcademicNotice n WHERE n.title LIKE CONCAT('%', :keyword, '%')")
     List<AcademicNotice> searchByTitle(@Param("keyword") String keyword);
+
+    AcademicNotice findOneById(Long noticeID);
 }
