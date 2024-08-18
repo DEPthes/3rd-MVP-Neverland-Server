@@ -47,6 +47,7 @@ public class DormitoryNoticeService {
                                 .title(notice.getTitle())
                                 .url(notice.getUrl())
                                 .marked(isMarked)
+                                .campus(notice.getCampus())
                                 .important(notice.isImportant())
                                 .build();
                     })
@@ -62,6 +63,7 @@ public class DormitoryNoticeService {
                                 .title(notice.getTitle())
                                 .url(notice.getUrl())
                                 .marked(isMarked)
+                                .campus(notice.getCampus())
                                 .important(notice.isImportant())
                                 .build();
                     }).toList());
@@ -88,6 +90,7 @@ public class DormitoryNoticeService {
                                 .url(notice.getUrl())
                                 .marked(isMarked)
                                 .important(notice.isImportant())
+                                .campus(notice.getCampus())
                                 .build();
                     })
                     .collect(Collectors.toList());

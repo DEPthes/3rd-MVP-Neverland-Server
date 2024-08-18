@@ -49,6 +49,7 @@ public class LibraryNoticeService {
                                 .url(notice.getUrl())
                                 .marked(isMarked)
                                 .important(notice.isImportant())
+                                .campus(notice.getCampus())
                                 .build();
                     })
                     .collect(Collectors.toList());
@@ -64,6 +65,7 @@ public class LibraryNoticeService {
                                 .url(notice.getUrl())
                                 .marked(isMarked)
                                 .important(notice.isImportant())
+                                .campus(notice.getCampus())
                                 .build();
                     }).toList());
 
@@ -89,6 +91,7 @@ public class LibraryNoticeService {
                                 .url(notice.getUrl())
                                 .marked(isMarked)
                                 .important(notice.isImportant())
+                                .campus(notice.getCampus())
                                 .build();
                     })
                     .collect(Collectors.toList());
