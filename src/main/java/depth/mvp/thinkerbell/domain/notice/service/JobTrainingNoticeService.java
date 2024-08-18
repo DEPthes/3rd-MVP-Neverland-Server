@@ -32,9 +32,6 @@ public class JobTrainingNoticeService {
         List<Long> bookmarkedNoticeIds = bookmarkService.getBookmark(ssaid,
                 this.getClass().getSimpleName().replace("Service", ""));
 
-//        List<JobTrainingNoticeDTO> dtoList = resultPage.stream()
-//                .map(JobTrainingNoticeDTO::fromEntity)
-//                .collect(Collectors.toList());
         List<JobTrainingNoticeDTO> dtoList = resultPage.stream()
                 .map(notice -> {
                     boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
@@ -50,7 +47,6 @@ public class JobTrainingNoticeService {
                             .marked(isMarked)
                             .build();
                 })
-                // DTO 클래스 내의 메서드 호출
                 .collect(Collectors.toList());
         return new PaginationDTO<>(
                 dtoList,

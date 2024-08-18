@@ -2,7 +2,6 @@ package depth.mvp.thinkerbell.domain.notice.service;
 
 import depth.mvp.thinkerbell.domain.common.pagination.PaginationDTO;
 import depth.mvp.thinkerbell.domain.notice.dto.DormitoryEntryNoticeDTO;
-import depth.mvp.thinkerbell.domain.notice.dto.DormitoryNoticeDTO;
 import depth.mvp.thinkerbell.domain.notice.entity.DormitoryEntryNotice;
 import depth.mvp.thinkerbell.domain.notice.repository.DormitoryEntryNoticeRepository;
 import depth.mvp.thinkerbell.domain.user.service.BookmarkService;
@@ -21,7 +20,14 @@ public class DormitoryEntryNoticeService {
     @Autowired
     private DormitoryEntryNoticeRepository dormitoryEntryNoticeRepository;
 
-    public PaginationDTO<DormitoryEntryNoticeDTO> getImportantNotices(int page, int size) {
+    public DormitoryEntryNoticeService(BookmarkService bookmarkService) {
+        this.bookmarkService = bookmarkService;
+    }
+
+    public PaginationDTO<DormitoryEntryNoticeDTO> getImportantNotices(int page, int size, String ssaid) {
+        // USER가 북마크한 내역(id리스트) 가져오기
+        List<Long> bookmarkedNoticeIds = bookmarkService.getBookmark(ssaid,
+                this.getClass().getSimpleName().replace("Service", ""));
         if (page == 0) {
             // 첫 번째 페이지: 중요 공지사항 모두 가져오기
             List<DormitoryEntryNotice> importantNotices = dormitoryEntryNoticeRepository.findAllByImportantTrueOrderByPubDateDesc();
@@ -32,12 +38,33 @@ public class DormitoryEntryNoticeService {
 
             // DTO 변환
             List<DormitoryEntryNoticeDTO> dtoList = importantNotices.stream()
-                    .map(DormitoryEntryNoticeDTO::fromEntity)
+                    .map(notice -> {
+                        boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
+
+                        return DormitoryEntryNoticeDTO.builder()
+                                .id(notice.getId())
+                                .pubDate(notice.getPubDate())
+                                .title(notice.getTitle())
+                                .url(notice.getUrl())
+                                .marked(isMarked)
+                                .important(notice.isImportant())
+                                .build();
+                    })
                     .collect(Collectors.toList());
 
             dtoList.addAll(latestNoticesPage.stream()
-                    .map(DormitoryEntryNoticeDTO::fromEntity)
-                    .collect(Collectors.toList()));
+                    .map(notice -> {
+                        boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
+
+                        return DormitoryEntryNoticeDTO.builder()
+                                .id(notice.getId())
+                                .pubDate(notice.getPubDate())
+                                .title(notice.getTitle())
+                                .url(notice.getUrl())
+                                .marked(isMarked)
+                                .important(notice.isImportant())
+                                .build();
+                    }).toList());
 
             return new PaginationDTO<>(
                     dtoList,
@@ -51,7 +78,18 @@ public class DormitoryEntryNoticeService {
             Page<DormitoryEntryNotice> resultPage = dormitoryEntryNoticeRepository.findAllByImportantFalseOrderByPubDateDesc(pageable);
 
             List<DormitoryEntryNoticeDTO> dtoList = resultPage.stream()
-                    .map(DormitoryEntryNoticeDTO::fromEntity)
+                    .map(notice -> {
+                        boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
+
+                        return DormitoryEntryNoticeDTO.builder()
+                                .id(notice.getId())
+                                .pubDate(notice.getPubDate())
+                                .title(notice.getTitle())
+                                .url(notice.getUrl())
+                                .marked(isMarked)
+                                .important(notice.isImportant())
+                                .build();
+                    })
                     .collect(Collectors.toList());
 
             return new PaginationDTO<>(
