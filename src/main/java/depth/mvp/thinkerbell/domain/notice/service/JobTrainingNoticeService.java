@@ -36,6 +36,7 @@ public class JobTrainingNoticeService {
                 .map(notice -> {
                     boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
                     return JobTrainingNoticeDTO.builder()
+                            .id(notice.getId())
                             .company(notice.getCompany())
                             .year(notice.getYear())
                             .semester(notice.getSemester())
