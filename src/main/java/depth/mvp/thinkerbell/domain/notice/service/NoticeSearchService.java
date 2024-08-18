@@ -202,7 +202,26 @@ public class NoticeSearchService {
             result.put("eventNotices", eventNotices);
         }
 
-        // ScholarshipNotices 검색 및 DTO 변환
+        // CareerNotice 검색 및 DTO 변환
+        List<CareerNoticeDTO> careerNotices = careerNoticeRepository.searchByTitle(keyword)
+                .stream()
+                .map(notice -> {
+                    boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
+
+                    return CareerNoticeDTO.builder()
+                            .id(notice.getId())
+                            .pubDate(notice.getPubDate())
+                            .title(notice.getTitle())
+                            .url(notice.getUrl())
+                            .marked(isMarked)
+                            .build();
+                }).collect(Collectors.toList());
+
+        if (!careerNotices.isEmpty()) {
+            result.put("CareerNotice", careerNotices);
+        }
+
+        // ScholarshipNotice 검색 및 DTO 변환
         List<ScholarshipNoticeDTO> scholarshipNotices = scholarshipNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
@@ -237,6 +256,10 @@ public class NoticeSearchService {
                 }).collect(Collectors.toList());
 
         // BiddingNotices 검색 및 DTO 변환
+        if (!studentActsNotices.isEmpty()) {
+            result.put("StudentActsNotice", studentActsNotices);
+        }
+
         List<BiddingNoticeDTO> biddingNotices = biddingNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
