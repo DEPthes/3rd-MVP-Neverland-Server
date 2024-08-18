@@ -50,6 +50,7 @@ public class NoticeSearchService {
                             .url(notice.getUrl())
                             .marked(isMarked)
                             .important(notice.isImportant())
+                            .campus(notice.getCampus())
                             .build();
                 })
                 .collect(Collectors.toList());
@@ -70,6 +71,7 @@ public class NoticeSearchService {
                             .url(notice.getUrl())
                             .marked(isMarked)
                             .important(notice.isImportant())
+                            .campus(notice.getCampus())
                             .build();
                 })
                 .collect(Collectors.toList());
@@ -91,6 +93,7 @@ public class NoticeSearchService {
                             .url(notice.getUrl())
                             .marked(isMarked)
                             .important(notice.isImportant())
+                            .campus(notice.getCampus())
                             .build();
                 })
                 .collect(Collectors.toList());
