@@ -34,7 +34,7 @@ public class LibraryNoticeService {
             List<LibraryNotice> importantNotices = libraryNoticeRepository.findAllByImportantTrueOrderByPubDateDesc();
 
             // 최신 공지사항 가져오기 (최대 10개)
-            Pageable latestPageable = PageRequest.of(0, 10);
+            Pageable latestPageable = PageRequest.of(page, size);
             Page<LibraryNotice> latestNoticesPage = libraryNoticeRepository.findAllByImportantFalseOrderByPubDateDesc(latestPageable);
 
             // DTO 변환
@@ -69,13 +69,13 @@ public class LibraryNoticeService {
 
             return new PaginationDTO<>(
                     dtoList,
-                    0, // 첫 페이지 번호
+                    page,
                     dtoList.size(), // 가져온 항목의 개수
                     importantNotices.size() + latestNoticesPage.getTotalElements() // 총 항목 수
             );
         } else {
             // 첫 페이지가 아닌 경우 최신 공지사항만 처리
-            Pageable pageable = PageRequest.of(page - 1, size);  // 첫 페이지는 이미 처리했으므로 page - 1
+            Pageable pageable = PageRequest.of(page, size);
             Page<LibraryNotice> resultPage = libraryNoticeRepository.findAllByImportantFalseOrderByPubDateDesc(pageable);
 
             List<LibraryNoticeDTO> dtoList = resultPage.stream()
@@ -93,11 +93,13 @@ public class LibraryNoticeService {
                     })
                     .collect(Collectors.toList());
 
+            int importantNoticesSize = libraryNoticeRepository.findAllByImportantTrueOrderByPubDateDesc().size();
+
             return new PaginationDTO<>(
                     dtoList,
-                    resultPage.getNumber() + 1, // 페이지 번호를 1 추가하여 반환
+                    resultPage.getNumber(),
                     resultPage.getSize(),
-                    resultPage.getTotalElements()
+                    importantNoticesSize + resultPage.getTotalElements()
             );
         }
     }
