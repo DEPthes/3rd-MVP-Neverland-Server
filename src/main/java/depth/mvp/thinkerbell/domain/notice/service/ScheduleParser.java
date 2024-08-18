@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class ScheduleParser {
 
-    private static final Pattern DATE_PATTERN = Pattern.compile("\\.(\\d{2})\\s(\\d{2})\\s~\\s\\.(\\d{2})\\s(\\d{2})");
+    private static final Pattern DATE_PATTERN = Pattern.compile("\\.(\\d{2})\\s\\.(\\d{2})\\s~\\s\\.(\\d{2})\\s\\.(\\d{2})");
 
     public static LocalDate[] parseDate(String dateRange) {
         Matcher matcher = DATE_PATTERN.matcher(dateRange);

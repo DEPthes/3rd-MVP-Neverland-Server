@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -31,9 +32,9 @@ public class ScholarshipNoticeController {
             @ApiResponse(responseCode = "500", description = "서버 오류 발생")
     })
     @GetMapping
-    public ApiResult<List<ScholarshipNoticeDTO>> getAllScholarshipNotices() {
+    public ApiResult<List<ScholarshipNoticeDTO>> getAllScholarshipNotices(@RequestParam("ssaid") String ssaid) {
         try {
-            List<ScholarshipNoticeDTO> notices = scholarshipNoticeService.getAllScholarshipNotices();
+            List<ScholarshipNoticeDTO> notices = scholarshipNoticeService.getAllScholarshipNotices(ssaid);
             return ApiResult.ok(notices);
         } catch (RuntimeException e) {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);

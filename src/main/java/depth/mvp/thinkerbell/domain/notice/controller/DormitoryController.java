@@ -33,9 +33,10 @@ public class DormitoryController {
     @GetMapping("/notices")
     public ApiResult<PaginationDTO<DormitoryNoticeDTO>> getImportantNotices(
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size) {
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam("ssaid") String ssaid) {
         try {
-            PaginationDTO<DormitoryNoticeDTO> paginationDTO = dormitoryNoticeService.getImportantNotices(page, size);
+            PaginationDTO<DormitoryNoticeDTO> paginationDTO = dormitoryNoticeService.getImportantNotices(page, size, ssaid);
             return ApiResult.ok(paginationDTO);
         } catch (RuntimeException e) {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
@@ -51,9 +52,11 @@ public class DormitoryController {
     @GetMapping("/entry-notices")
     public ApiResult<PaginationDTO<DormitoryEntryNoticeDTO>> getImportantEntryNotices(
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size) {
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam("ssaid") String ssaid) {
         try {
-            PaginationDTO<DormitoryEntryNoticeDTO> paginationDTO = dormitoryEntryNoticeService.getImportantNotices(page, size);
+            PaginationDTO<DormitoryEntryNoticeDTO> paginationDTO =
+                    dormitoryEntryNoticeService.getImportantNotices(page, size, ssaid);
             return ApiResult.ok(paginationDTO);
         } catch (RuntimeException e) {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);

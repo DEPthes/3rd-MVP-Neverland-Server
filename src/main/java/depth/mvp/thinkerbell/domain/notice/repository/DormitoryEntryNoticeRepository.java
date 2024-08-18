@@ -18,4 +18,5 @@ public interface DormitoryEntryNoticeRepository extends JpaRepository<DormitoryE
 
     // 중요하지 않은 공지사항을 페이지네이션하여 가져오는 메서드
     Page<DormitoryEntryNotice> findAllByImportantFalseOrderByPubDateDesc(Pageable pageable);
+
 }

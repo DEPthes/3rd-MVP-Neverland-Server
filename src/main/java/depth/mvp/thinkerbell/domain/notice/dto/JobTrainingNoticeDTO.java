@@ -2,10 +2,12 @@ package depth.mvp.thinkerbell.domain.notice.dto;
 
 import depth.mvp.thinkerbell.domain.notice.entity.JobTrainingNotice;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
+@Builder
 public class JobTrainingNoticeDTO {
     private Long id;
 
@@ -17,6 +19,7 @@ public class JobTrainingNoticeDTO {
     private String recrutingNum;
     private String deadline;
     private String jobName;
+    private boolean marked;
 
     // 엔티티를 DTO로 변환하는 정적 메서드
     public static JobTrainingNoticeDTO fromEntity(JobTrainingNotice notice) {

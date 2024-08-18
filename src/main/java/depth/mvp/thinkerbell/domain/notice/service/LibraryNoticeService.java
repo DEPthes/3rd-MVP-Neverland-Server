@@ -2,20 +2,23 @@ package depth.mvp.thinkerbell.domain.notice.service;
 
 import depth.mvp.thinkerbell.domain.common.pagination.PaginationDTO;
 import depth.mvp.thinkerbell.domain.notice.dto.LibraryNoticeDTO;
+import depth.mvp.thinkerbell.domain.notice.dto.TeachingNoticeDTO;
 import depth.mvp.thinkerbell.domain.notice.entity.LibraryNotice;
 import depth.mvp.thinkerbell.domain.notice.repository.LibraryNoticeRepository;
+import depth.mvp.thinkerbell.domain.user.service.BookmarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class LibraryNoticeService {
-
+    private final BookmarkService bookmarkService;
     @Autowired
     private LibraryNoticeRepository libraryNoticeRepository;
 
