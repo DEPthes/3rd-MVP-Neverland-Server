@@ -11,6 +11,6 @@ import java.util.List;
 public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
     List<Bookmark> findByUserAndCategory(User user, String category);
     Bookmark findByCategoryAndNoticeIDAndUser(String category, Long NoticeId, User user);
-
+    boolean existsByCategoryAndNoticeIDAndUser(String category, Long noticeID, User user);
     List<Bookmark> findByUser(User user);
 }
