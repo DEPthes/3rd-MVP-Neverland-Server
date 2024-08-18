@@ -1,29 +1,19 @@
 package depth.mvp.thinkerbell.domain.notice.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class AcademicScheduleDto {
 
     private Long id;
     private String title;
-    private Long univId;
     private LocalDate startDate;
     private LocalDate endDate;
+    private boolean marked;
 
-    @Builder
-    public AcademicScheduleDto(Long id, String title, Long univId, LocalDate startDate, LocalDate endDate) {
-        this.id = id;
-        this.title = title;
-        this.univId = univId;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
 }
