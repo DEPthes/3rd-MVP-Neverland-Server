@@ -13,4 +13,6 @@ import java.util.List;
 public interface BiddingNoticeRepository extends JpaRepository<BiddingNotice, Long> {
     @Query("SELECT n FROM BiddingNotice n WHERE n.title LIKE CONCAT('%', :keyword, '%')")
     List<BiddingNotice> searchByTitle(@Param("keyword") String keyword);
+
+    BiddingNotice findOneById(Long noticeID);
 }

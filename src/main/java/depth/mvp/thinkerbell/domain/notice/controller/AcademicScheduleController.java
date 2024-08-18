@@ -33,9 +33,10 @@ public class AcademicScheduleController {
     @GetMapping("/monthly")
     public ApiResult<List<AcademicScheduleDto>> getMonthlySchedule(
             @Parameter(description = "조회할 월 (1~12)", required = true)
-            @RequestParam int month) {
+            @RequestParam int month,
+            @RequestParam String ssaid) {
         try {
-            List<AcademicScheduleDto> schedules = academicScheduleService.getMonthlySchedule(month);
+            List<AcademicScheduleDto> schedules = academicScheduleService.getMonthlySchedule(month, ssaid);
             return ApiResult.ok(schedules);
         } catch (IllegalArgumentException e) {
             return ApiResult.withError(ErrorCode.INVALID_INPUT_VALUE, null);

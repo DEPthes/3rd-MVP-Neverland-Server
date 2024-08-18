@@ -12,4 +12,6 @@ import java.util.List;
 public interface ScholarshipNoticeRepository extends JpaRepository<ScholarshipNotice, Long> {
     @Query("SELECT n FROM ScholarshipNotice n WHERE n.title LIKE CONCAT('%', :keyword, '%')")
     List<ScholarshipNotice> searchByTitle(@Param("keyword") String keyword);
+
+    ScholarshipNotice findOneById(Long noticeID);
 }

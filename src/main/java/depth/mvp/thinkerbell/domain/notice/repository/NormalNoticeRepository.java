@@ -14,4 +14,6 @@ public interface NormalNoticeRepository  extends JpaRepository<NormalNotice, Lon
 
     @Query("SELECT n FROM NormalNotice n WHERE n.title LIKE CONCAT('%', :keyword, '%')")
     List<NormalNotice> searchByTitle(@Param("keyword") String keyword);
+
+    NormalNotice findOneById(Long noticeID);
 }
