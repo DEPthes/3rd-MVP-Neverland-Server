@@ -2,11 +2,17 @@ package depth.mvp.thinkerbell.domain.notice.service;
 
 import depth.mvp.thinkerbell.domain.notice.dto.*;
 import depth.mvp.thinkerbell.domain.notice.repository.*;
+import depth.mvp.thinkerbell.domain.user.entity.Bookmark;
+import depth.mvp.thinkerbell.domain.user.entity.User;
+import depth.mvp.thinkerbell.domain.user.repository.BookmarkRepository;
+import depth.mvp.thinkerbell.domain.user.repository.UserRepository;
 import depth.mvp.thinkerbell.domain.user.service.BookmarkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.webjars.NotFoundException;
 
+import java.awt.print.Book;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +22,8 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 public class NoticeSearchService {
-    private final BookmarkService bookmarkService;
+    private final BookmarkRepository bookmarkRepository;
+    private final UserRepository userRepository;
     private final DormitoryEntryNoticeRepository dormitoryEntryNoticeRepository;
     private final DormitoryNoticeRepository dormitoryNoticeRepository;
     private final LibraryNoticeRepository libraryNoticeRepository;
@@ -36,15 +43,15 @@ public class NoticeSearchService {
     public Map<String, List<?>> searchNotices(String keyword, String ssaid) {
         Map<String, List<?>> result = new HashMap<>();
         // USER가 북마크한 내역(id리스트) 가져오기
-        List<Long> bookmarkedNoticeIds = bookmarkService.getBookmark(ssaid,
-                this.getClass().getSimpleName().replace("Service", ""));
+        User user = userRepository.findBySsaid(ssaid)
+                .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
 
         // DormitoryEntryNotice 검색 및 DTO 변환
         List<DormitoryEntryNoticeDTO> dormitoryEntryNotices = dormitoryEntryNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
-                    boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
-
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "DormitoryEntryNotice", notice.getId(), user);
                     return DormitoryEntryNoticeDTO.builder()
                             .id(notice.getId())
                             .pubDate(notice.getPubDate())
@@ -64,8 +71,8 @@ public class NoticeSearchService {
         List<DormitoryNoticeDTO> dormitoryNotices = dormitoryNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
-                    boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
-
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "DormitoryNotice", notice.getId(), user);
                     return DormitoryNoticeDTO.builder()
                             .id(notice.getId())
                             .pubDate(notice.getPubDate())
@@ -86,8 +93,8 @@ public class NoticeSearchService {
         List<LibraryNoticeDTO> libraryNotices = libraryNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
-                    boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
-
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "LibraryNotice", notice.getId(), user);
                     return LibraryNoticeDTO.builder()
                             .id(notice.getId())
                             .pubDate(notice.getPubDate())
@@ -108,8 +115,8 @@ public class NoticeSearchService {
         List<TeachingNoticeDTO> teachingNotices = teachingNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
-                    boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
-
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "TeachingNotice", notice.getId(), user);
                     return TeachingNoticeDTO.builder()
                             .id(notice.getId())
                             .pubDate(notice.getPubDate())
@@ -129,8 +136,8 @@ public class NoticeSearchService {
         List<JobTrainingNoticeDTO> jobTrainingNotices = jobTrainingNoticeRepository.searchByTitleOrMajor(keyword)
                 .stream()
                 .map(notice -> {
-                    boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
-                    return JobTrainingNoticeDTO.builder()
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "JobTrainingNotice", notice.getId(), user);                    return JobTrainingNoticeDTO.builder()
                             .id(notice.getId())
                             .company(notice.getCompany())
                             .year(notice.getYear())
@@ -153,8 +160,8 @@ public class NoticeSearchService {
         List<NormalNoticeDTO> normalNotices = normalNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
-                    boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
-
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "NormalNotice", notice.getId(), user);
                     return NormalNoticeDTO.builder()
                             .id(notice.getId())
                             .pubDate(notice.getPubDate())
@@ -172,8 +179,8 @@ public class NoticeSearchService {
         List<AcademicNoticeDTO> academicNotices = academicNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
-                    boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
-
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "AcademicNotice", notice.getId(), user);
                     return AcademicNoticeDTO.builder()
                             .id(notice.getId())
                             .pubDate(notice.getPubDate())
@@ -192,8 +199,8 @@ public class NoticeSearchService {
         List<EventNoticeDTO> eventNotices = eventNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
-                    boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
-
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "EventNotice", notice.getId(), user);
                     return EventNoticeDTO.builder()
                             .id(notice.getId())
                             .pubDate(notice.getPubDate())
@@ -211,8 +218,8 @@ public class NoticeSearchService {
         List<CareerNoticeDTO> careerNotices = careerNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
-                    boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
-
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "CareerNotice", notice.getId(), user);
                     return CareerNoticeDTO.builder()
                             .id(notice.getId())
                             .pubDate(notice.getPubDate())
@@ -230,8 +237,8 @@ public class NoticeSearchService {
         List<ScholarshipNoticeDTO> scholarshipNotices = scholarshipNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
-                    boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
-
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "ScholarshipNotices", notice.getId(), user);
                     return ScholarshipNoticeDTO.builder()
                             .id(notice.getId())
                             .pubDate(notice.getPubDate())
@@ -249,8 +256,8 @@ public class NoticeSearchService {
         List<StudentActsNoticeDTO> studentActsNotices = studentActsNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
-                    boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
-
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "StudentActsNotice", notice.getId(), user);
                     return StudentActsNoticeDTO.builder()
                             .id(notice.getId())
                             .pubDate(notice.getPubDate())
@@ -268,8 +275,8 @@ public class NoticeSearchService {
         List<BiddingNoticeDTO> biddingNotices = biddingNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
-                    boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
-
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "BiddingNotice", notice.getId(), user);
                     return BiddingNoticeDTO.builder()
                             .id(notice.getId())
                             .pubDate(notice.getPubDate())
@@ -287,8 +294,8 @@ public class NoticeSearchService {
         List<SafetyNoticeDTO> safetyNotices = safetyNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
-                    boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
-
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "SafetyNotice", notice.getId(), user);
                     return SafetyNoticeDTO.builder()
                             .id(notice.getId())
                             .pubDate(notice.getPubDate())
@@ -306,8 +313,8 @@ public class NoticeSearchService {
         List<RevisionNoticeDTO> revisionNotices = revisionNoticeRepository.searchByTitle(keyword)
                 .stream()
                 .map(notice -> {
-                    boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
-
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "RevisionNotice", notice.getId(), user);
                     return RevisionNoticeDTO.builder()
                             .id(notice.getId())
                             .pubDate(notice.getPubDate())
