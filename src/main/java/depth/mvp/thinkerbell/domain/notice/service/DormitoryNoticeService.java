@@ -20,7 +20,14 @@ public class DormitoryNoticeService {
     @Autowired
     private DormitoryNoticeRepository dormitoryNoticeRepository;
 
-    public PaginationDTO<DormitoryNoticeDTO> getImportantNotices(int page, int size) {
+    public DormitoryNoticeService(BookmarkService bookmarkService) {
+        this.bookmarkService = bookmarkService;
+    }
+
+    public PaginationDTO<DormitoryNoticeDTO> getImportantNotices(int page, int size, String ssaid) {
+        // USER가 북마크한 내역(id리스트) 가져오기
+        List<Long> bookmarkedNoticeIds = bookmarkService.getBookmark(ssaid,
+                this.getClass().getSimpleName().replace("Service", ""));
         if (page == 0) {
             // 첫 페이지: 중요 공지사항 모두 가져오기
             List<DormitoryNotice> importantNotices = dormitoryNoticeRepository.findAllByImportantTrueOrderByPubDateDesc();
@@ -31,12 +38,33 @@ public class DormitoryNoticeService {
 
             // DTO 변환
             List<DormitoryNoticeDTO> dtoList = importantNotices.stream()
-                    .map(DormitoryNoticeDTO::fromEntity)
+                    .map(notice -> {
+                        boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
+
+                        return DormitoryNoticeDTO.builder()
+                                .id(notice.getId())
+                                .pubDate(notice.getPubDate())
+                                .title(notice.getTitle())
+                                .url(notice.getUrl())
+                                .marked(isMarked)
+                                .important(notice.isImportant())
+                                .build();
+                    })
                     .collect(Collectors.toList());
 
             dtoList.addAll(latestNoticesPage.stream()
-                    .map(DormitoryNoticeDTO::fromEntity)
-                    .collect(Collectors.toList()));
+                    .map(notice -> {
+                        boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
+
+                        return DormitoryNoticeDTO.builder()
+                                .id(notice.getId())
+                                .pubDate(notice.getPubDate())
+                                .title(notice.getTitle())
+                                .url(notice.getUrl())
+                                .marked(isMarked)
+                                .important(notice.isImportant())
+                                .build();
+                    }).toList());
 
             return new PaginationDTO<>(
                     dtoList,
@@ -50,8 +78,20 @@ public class DormitoryNoticeService {
             Page<DormitoryNotice> resultPage = dormitoryNoticeRepository.findAllByImportantFalseOrderByPubDateDesc(pageable);
 
             List<DormitoryNoticeDTO> dtoList = resultPage.stream()
-                    .map(DormitoryNoticeDTO::fromEntity)
+                    .map(notice -> {
+                        boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
+
+                        return DormitoryNoticeDTO.builder()
+                                .id(notice.getId())
+                                .pubDate(notice.getPubDate())
+                                .title(notice.getTitle())
+                                .url(notice.getUrl())
+                                .marked(isMarked)
+                                .important(notice.isImportant())
+                                .build();
+                    })
                     .collect(Collectors.toList());
+
 
             return new PaginationDTO<>(
                     dtoList,

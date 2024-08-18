@@ -1,7 +1,6 @@
 package depth.mvp.thinkerbell.domain.notice.service;
 
 import depth.mvp.thinkerbell.domain.common.pagination.PaginationDTO;
-import depth.mvp.thinkerbell.domain.notice.dto.DormitoryNoticeDTO;
 import depth.mvp.thinkerbell.domain.notice.dto.TeachingNoticeDTO;
 import depth.mvp.thinkerbell.domain.notice.entity.TeachingNotice;
 import depth.mvp.thinkerbell.domain.notice.repository.TeachingNoticeRepository;
@@ -21,7 +20,14 @@ public class TeachingNoticeService {
     @Autowired
     private TeachingNoticeRepository teachingNoticeRepository;
 
-    public PaginationDTO<TeachingNoticeDTO> getImportantNotices(int page, int size) {
+    public TeachingNoticeService(BookmarkService bookmarkService) {
+        this.bookmarkService = bookmarkService;
+    }
+
+    public PaginationDTO<TeachingNoticeDTO> getImportantNotices(int page, int size, String ssaid) {
+        // USER가 북마크한 내역(id리스트) 가져오기
+        List<Long> bookmarkedNoticeIds = bookmarkService.getBookmark(ssaid,
+                this.getClass().getSimpleName().replace("Service", ""));
         if (page == 0) {
             // 첫 페이지: 중요 공지사항 모두 가져오기
             List<TeachingNotice> importantNotices = teachingNoticeRepository.findAllByImportantTrueOrderByPubDateDesc();
@@ -32,12 +38,33 @@ public class TeachingNoticeService {
 
             // DTO 변환
             List<TeachingNoticeDTO> dtoList = importantNotices.stream()
-                    .map(TeachingNoticeDTO::fromEntity)
+                    .map(notice -> {
+                        boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
+
+                        return TeachingNoticeDTO.builder()
+                                .id(notice.getId())
+                                .pubDate(notice.getPubDate())
+                                .title(notice.getTitle())
+                                .url(notice.getUrl())
+                                .marked(isMarked)
+                                .important(notice.isImportant())
+                                .build();
+                    })
                     .collect(Collectors.toList());
 
             dtoList.addAll(latestNoticesPage.stream()
-                    .map(TeachingNoticeDTO::fromEntity)
-                    .collect(Collectors.toList()));
+                    .map(notice -> {
+                        boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
+
+                        return TeachingNoticeDTO.builder()
+                                .id(notice.getId())
+                                .pubDate(notice.getPubDate())
+                                .title(notice.getTitle())
+                                .url(notice.getUrl())
+                                .marked(isMarked)
+                                .important(notice.isImportant())
+                                .build();
+                    }).toList());
 
             return new PaginationDTO<>(
                     dtoList,
@@ -51,7 +78,18 @@ public class TeachingNoticeService {
             Page<TeachingNotice> resultPage = teachingNoticeRepository.findAllByImportantFalseOrderByPubDateDesc(pageable);
 
             List<TeachingNoticeDTO> dtoList = resultPage.stream()
-                    .map(TeachingNoticeDTO::fromEntity)
+                    .map(notice -> {
+                        boolean isMarked = bookmarkedNoticeIds.contains(notice.getId());
+
+                        return TeachingNoticeDTO.builder()
+                                .id(notice.getId())
+                                .pubDate(notice.getPubDate())
+                                .title(notice.getTitle())
+                                .url(notice.getUrl())
+                                .marked(isMarked)
+                                .important(notice.isImportant())
+                                .build();
+                    })
                     .collect(Collectors.toList());
 
             return new PaginationDTO<>(
