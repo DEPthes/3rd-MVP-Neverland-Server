@@ -16,7 +16,8 @@ public class BannerService {
         return bannerRepository.findAll().stream().map(banner -> new BannerDTO(
                 banner.getId(),
                 banner.getTitle(),
-                banner.getS3Url()
+                banner.getS3Url(),
+                banner.getNoticeUrl()
         )).collect(Collectors.toList());
     }
 }
