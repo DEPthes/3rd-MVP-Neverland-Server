@@ -17,4 +17,5 @@ public class Banner {
 
     private String title;
     private String s3Url;
+    private String noticeUrl;
 }
