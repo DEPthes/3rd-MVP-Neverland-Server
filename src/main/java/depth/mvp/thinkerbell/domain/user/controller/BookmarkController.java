@@ -69,4 +69,19 @@ public class BookmarkController {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
         }
     }
+
+    @Operation(summary = "공지사항 최근 즐겨찾기 3개 내역 조회", description = "즐겨찾기 설정한 최근 3개의 공지사항을 조회합니다 (현장실습 제외)")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "성공적으로 조회됨"),
+            @ApiResponse(responseCode = "400", description = "잘못된 입력 값"),
+            @ApiResponse(responseCode = "500", description = "서버 오류 발생")
+    })
+    @GetMapping("/recent")
+    public ApiResult<List<?>> getRecentNotices(@RequestParam("ssaid") String ssaid) {
+        try {
+            return ApiResult.ok(bookmarkService.getRecentNotices(ssaid));
+        } catch (RuntimeException e) {
+            return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
+        }
+    }
 }
