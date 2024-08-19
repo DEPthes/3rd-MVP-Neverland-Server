@@ -14,10 +14,10 @@ public interface DormitoryNoticeRepository extends JpaRepository<DormitoryNotice
     List<DormitoryNotice> searchByTitle(@Param("keyword") String keyword);
 
     // 중요 공지사항을 모두 가져오는 메서드
-    List<DormitoryNotice> findAllByImportantTrueOrderByPubDateDesc();
+    List<DormitoryNotice> findAllByImportantTrueAndCampusOrderByPubDateDesc(String campus);
 
     // 중요하지 않은 공지사항을 페이지네이션하여 가져오는 메서드
-    Page<DormitoryNotice> findAllByImportantFalseOrderByPubDateDesc(Pageable pageable);
+    Page<DormitoryNotice> findAllByImportantFalseAndCampusOrderByPubDateDesc(Pageable pageable, String campus);
 
     DormitoryNotice findOneById(Long id);
 }
