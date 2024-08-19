@@ -105,6 +105,43 @@ public class AlarmService {
         }
     }
 
+    public void updateNoticeAndMatchKeywordTest(){
+        List<CrawlingNum> crawlingNums;
+
+        try {
+            crawlingNums = crawlingNumRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("크롤링 번호 레코드를 가져오는 동안 오류가 발생했습니다.", e);
+        }
+
+        for (CrawlingNum crawlingNum : crawlingNums) {
+            List<AllNoticesView> allNoticesViews;
+
+            try {
+                allNoticesViews = allNoticeViewRepository.findNewNoticesByCategory(crawlingNum.getNoticeType(), crawlingNum.getNoticeID());
+
+            } catch (Exception e) {
+                throw new RuntimeException(crawlingNum.getNoticeType() + "의 새로운 공지사항을 가져오는 중 오류가 발생했습니다.", e);
+            }
+
+            for (Keyword keyword : keywordRepository.findAll()) {
+                for (AllNoticesView notice : allNoticesViews) {
+                    String titleWithoutSpace = notice.getTitle().replace(" ", "");
+
+                    if (titleWithoutSpace.contains(keyword.getKeyword())) {
+                        try{
+                            Alarm alarm = new Alarm(notice.getId(), notice.getTableName(), keyword.getUser(), notice.getTitle(), keyword.getKeyword());
+
+                            fcmService.sendFCMMessage(alarm, keyword.getKeyword());
+                        } catch (Exception e) {
+                            throw new RuntimeException("유저 알림을 저장하거나, fcm 알림을 보내는 도중 오류가 발생했습니다.", e);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     //보지 않은 알림이 있으면 true, 없으면 false
     public boolean hasUnviewedAlarm(String SSAID, String keyword){
         Optional<User> userOpt = userRepository.findBySsaid(SSAID);
