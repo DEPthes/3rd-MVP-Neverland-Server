@@ -1,6 +1,5 @@
 package depth.mvp.thinkerbell.domain.notice.repository;
 
-import depth.mvp.thinkerbell.domain.notice.entity.DormitoryEntryNotice;
 import depth.mvp.thinkerbell.domain.notice.entity.LibraryNotice;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
