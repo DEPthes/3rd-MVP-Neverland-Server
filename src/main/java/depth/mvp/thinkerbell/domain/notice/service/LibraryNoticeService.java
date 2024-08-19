@@ -24,18 +24,18 @@ public class LibraryNoticeService {
         this.bookmarkService = bookmarkService;
     }
 
-    public PaginationDTO<LibraryNoticeDTO> getImportantNotices(int page, int size, String ssaid) {
+    public PaginationDTO<LibraryNoticeDTO> getImportantNotices(int page, int size, String ssaid, String campus) {
         // USER가 북마크한 내역(id리스트) 가져오기
         List<Long> bookmarkedNoticeIds = bookmarkService.getBookmark(ssaid,
                 this.getClass().getSimpleName().replace("Service", ""));
         if (page == 0) {
             // 첫 번째 페이지
             // 중요 공지사항 모두 가져오기
-            List<LibraryNotice> importantNotices = libraryNoticeRepository.findAllByImportantTrueOrderByPubDateDesc();
+            List<LibraryNotice> importantNotices = libraryNoticeRepository.findAllByImportantTrueAndCampusOrderByPubDateDesc(campus);
 
             // 최신 공지사항 가져오기 (최대 10개)
             Pageable latestPageable = PageRequest.of(page, size);
-            Page<LibraryNotice> latestNoticesPage = libraryNoticeRepository.findAllByImportantFalseOrderByPubDateDesc(latestPageable);
+            Page<LibraryNotice> latestNoticesPage = libraryNoticeRepository.findAllByImportantFalseAndCampusOrderByPubDateDesc(latestPageable, campus);
 
             // DTO 변환
             List<LibraryNoticeDTO> dtoList = importantNotices.stream()
@@ -78,7 +78,7 @@ public class LibraryNoticeService {
         } else {
             // 첫 페이지가 아닌 경우 최신 공지사항만 처리
             Pageable pageable = PageRequest.of(page, size);
-            Page<LibraryNotice> resultPage = libraryNoticeRepository.findAllByImportantFalseOrderByPubDateDesc(pageable);
+            Page<LibraryNotice> resultPage = libraryNoticeRepository.findAllByImportantFalseAndCampusOrderByPubDateDesc(pageable, campus);
 
             List<LibraryNoticeDTO> dtoList = resultPage.stream()
                     .map(notice -> {
@@ -96,7 +96,7 @@ public class LibraryNoticeService {
                     })
                     .collect(Collectors.toList());
 
-            int importantNoticesSize = libraryNoticeRepository.findAllByImportantTrueOrderByPubDateDesc().size();
+            int importantNoticesSize = libraryNoticeRepository.findAllByImportantTrueAndCampusOrderByPubDateDesc(campus).size();
 
             return new PaginationDTO<>(
                     dtoList,
