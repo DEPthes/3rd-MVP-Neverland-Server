@@ -1,5 +1,6 @@
 package depth.mvp.thinkerbell.domain.notice.repository;
 
+import depth.mvp.thinkerbell.domain.notice.entity.AcademicNotice;
 import depth.mvp.thinkerbell.domain.notice.entity.NormalNotice;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,4 +20,6 @@ public interface NormalNoticeRepository  extends JpaRepository<NormalNotice, Lon
 
     List<NormalNotice> findAllByImportantTrueOrderByPubDateDesc();
     Page<NormalNotice> findAllByImportantFalseOrderByPubDateDesc(Pageable latestPageable);
+    List<NormalNotice> findTop3ByOrderByPubDateDesc();
+
 }

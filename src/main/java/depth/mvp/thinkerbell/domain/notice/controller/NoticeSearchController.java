@@ -38,4 +38,21 @@ public class NoticeSearchController {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
         }
     }
+
+    @Operation(summary = "5개 카테고리 최근 공지 3개씩 조회", description = "명지대 일반, 학사, 행사, 장학/학자금, 진로/취업/창업 총 5개 카테고리에 대한 최근 3개 " +
+            "공지사항 조회")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "성공적으로 조회됨"),
+            @ApiResponse(responseCode = "400", description = "잘못된 입력 값"),
+            @ApiResponse(responseCode = "500", description = "서버 오류 발생")
+    })
+    @GetMapping("/recent")
+    public ApiResult<Map<String, List<?>>> getRecentNotices(@RequestParam String ssaid) {
+        try {
+            Map<String, List<?>> notices = noticeSearchService.getRecentNotices(ssaid);
+            return ApiResult.ok(notices);
+        } catch (RuntimeException e) {
+            return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
+        }
+    }
 }
