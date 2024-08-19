@@ -3,6 +3,7 @@ package depth.mvp.thinkerbell.domain.user.service;
 import depth.mvp.thinkerbell.domain.notice.dto.*;
 import depth.mvp.thinkerbell.domain.notice.entity.*;
 import depth.mvp.thinkerbell.domain.notice.repository.*;
+import depth.mvp.thinkerbell.domain.user.dto.RecentMarkedNoticeDto;
 import depth.mvp.thinkerbell.domain.user.entity.Bookmark;
 import depth.mvp.thinkerbell.domain.user.entity.User;
 import depth.mvp.thinkerbell.domain.user.repository.BookmarkRepository;
@@ -80,7 +81,7 @@ public class BookmarkService {
         boolean isMarked = true;
 
         // DormitoryNotice
-        List<Bookmark> bookmarks = bookmarkRepository.findByUserAndCategory(user, "DormitoryNotice");
+        List<Bookmark> bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "DormitoryNotice");
         List<DormitoryNoticeDTO> markedDormitoryNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
                 DormitoryNotice notice = dormitoryNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -101,7 +102,7 @@ public class BookmarkService {
         }
 
         // DormitoryEntryNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "DormitoryEntryNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "DormitoryEntryNotice");
         List<DormitoryEntryNoticeDTO> markedDormitoryEntryNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             DormitoryEntryNotice notice = dormitoryEntryNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -122,7 +123,7 @@ public class BookmarkService {
         }
 
         // LibraryNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "LibraryNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "LibraryNotice");
         List<LibraryNoticeDTO> markedLibraryNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             LibraryNotice notice = libraryNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -143,7 +144,7 @@ public class BookmarkService {
         }
 
         // TeachingNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "TeachingNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "TeachingNotice");
         List<TeachingNoticeDTO> markedTeachingNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             TeachingNotice notice = teachingNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -163,7 +164,7 @@ public class BookmarkService {
         }
 
         // JobTrainingNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "JobTrainingNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "JobTrainingNotice");
         List<JobTrainingNoticeDTO> markedJobTrainingNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             JobTrainingNotice notice = jobTrainingNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -187,7 +188,7 @@ public class BookmarkService {
         }
 
         // NormalNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "NormalNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "NormalNotice");
         List<NormalNoticeDTO> markedNormalNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             NormalNotice notice = normalNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -207,7 +208,7 @@ public class BookmarkService {
         }
 
         // AcademicNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "AcademicNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "AcademicNotice");
         List<AcademicNoticeDTO> markedAcademicNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             AcademicNotice notice = academicNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -227,7 +228,7 @@ public class BookmarkService {
         }
 
         // EventNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "EventNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "EventNotice");
         List<EventNoticeDTO> markedEventNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             EventNotice notice = eventNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -246,7 +247,7 @@ public class BookmarkService {
         }
 
         // CareerNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "CareerNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "CareerNotice");
         List<CareerNoticeDTO> markedCareerNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             CareerNotice notice = careerNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -265,7 +266,7 @@ public class BookmarkService {
         }
 
         // ScholarshipNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "ScholarshipNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "ScholarshipNotice");
         List<ScholarshipNoticeDTO> markedScholarshipNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             ScholarshipNotice notice = scholarshipNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -284,7 +285,7 @@ public class BookmarkService {
         }
 
         // StudentActsNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "StudentActsNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "StudentActsNotice");
         List<StudentActsNoticeDTO> markedStudentActsNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             StudentActsNotice notice = studentActsNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -303,7 +304,7 @@ public class BookmarkService {
         }
 
         // BiddingNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "BiddingNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "BiddingNotice");
         List<BiddingNoticeDTO> markedBiddingNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             BiddingNotice notice = biddingNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -322,7 +323,7 @@ public class BookmarkService {
         }
 
         // SafetyNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "SafetyNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "SafetyNotice");
         List<SafetyNoticeDTO> markedSafetyNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             SafetyNotice notice = safetyNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -341,7 +342,7 @@ public class BookmarkService {
         }
 
         // RevisionNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "RevisionNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "RevisionNotice");
         List<RevisionNoticeDTO> markedRevisionNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             RevisionNotice notice = revisionNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -360,4 +361,177 @@ public class BookmarkService {
         }
         return result;
     }
+
+    public List<RecentMarkedNoticeDto> getRecentNotices(String ssaid) {
+        List<RecentMarkedNoticeDto> recentMarkedNoticeDtos = new ArrayList<>();
+        User user = userRepository.findBySsaid(ssaid)
+                .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
+
+        // 카테고리 목록
+        List<String> categories = List.of(
+                "DormitoryNotice", "DormitoryEntryNotice", "LibraryNotice",
+                "TeachingNotice", "JobTrainingNotice", "NormalNotice",
+                "AcademicNotice", "EventNotice", "CareerNotice",
+                "ScholarshipNotice", "StudentActsNotice", "BiddingNotice",
+                "SafetyNotice", "RevisionNotice"
+        );
+
+        // 각 카테고리별로 최근 북마크된 공지사항 가져오기
+        for (String category : categories) {
+            List<Bookmark> bookmarks = bookmarkRepository.findTop3ByUserAndCategoryOrderByCreatedAtDesc(user, category);
+
+            for (Bookmark bookmark : bookmarks) {
+                Long noticeId = bookmark.getNoticeID();
+                switch (category) {
+                    case "DormitoryNotice":
+                        DormitoryNotice dormitoryNotice = dormitoryNoticeRepository.findOneById(noticeId);
+                        if (dormitoryNotice != null) {
+                            recentMarkedNoticeDtos.add(RecentMarkedNoticeDto.builder()
+                                    .category(category)
+                                    .title(dormitoryNotice.getTitle())
+                                    .pubDate(dormitoryNotice.getPubDate())
+                                    .url(dormitoryNotice.getUrl())
+                                    .build());
+                        }
+                        break;
+                    case "DormitoryEntryNotice":
+                        DormitoryEntryNotice dormitoryEntryNotice = dormitoryEntryNoticeRepository.findOneById(noticeId);
+                        if (dormitoryEntryNotice != null) {
+                            recentMarkedNoticeDtos.add(RecentMarkedNoticeDto.builder()
+                                    .category(category)
+                                    .title(dormitoryEntryNotice.getTitle())
+                                    .pubDate(dormitoryEntryNotice.getPubDate())
+                                    .url(dormitoryEntryNotice.getUrl())
+                                    .build());
+                        }
+                        break;
+                    case "LibraryNotice":
+                        LibraryNotice libraryNotice = libraryNoticeRepository.findOneById(noticeId);
+                        if (libraryNotice != null) {
+                            recentMarkedNoticeDtos.add(RecentMarkedNoticeDto.builder()
+                                    .category(category)
+                                    .title(libraryNotice.getTitle())
+                                    .pubDate(libraryNotice.getPubDate())
+                                    .url(libraryNotice.getUrl())
+                                    .build());
+                        }
+                        break;
+                    case "TeachingNotice":
+                        TeachingNotice teachingNotice = teachingNoticeRepository.findOneById(noticeId);
+                        if (teachingNotice != null) {
+                            recentMarkedNoticeDtos.add(RecentMarkedNoticeDto.builder()
+                                    .category(category)
+                                    .title(teachingNotice.getTitle())
+                                    .pubDate(teachingNotice.getPubDate())
+                                    .url(teachingNotice.getUrl())
+                                    .build());
+                        }
+                        break;
+                    case "NormalNotice":
+                        NormalNotice normalNotice = normalNoticeRepository.findOneById(noticeId);
+                        if (normalNotice != null) {
+                            recentMarkedNoticeDtos.add(RecentMarkedNoticeDto.builder()
+                                    .category(category)
+                                    .title(normalNotice.getTitle())
+                                    .pubDate(normalNotice.getPubDate())
+                                    .url(normalNotice.getUrl())
+                                    .build());
+                        }
+                        break;
+                    case "AcademicNotice":
+                        AcademicNotice academicNotice = academicNoticeRepository.findOneById(noticeId);
+                        if (academicNotice != null) {
+                            recentMarkedNoticeDtos.add(RecentMarkedNoticeDto.builder()
+                                    .category(category)
+                                    .title(academicNotice.getTitle())
+                                    .pubDate(academicNotice.getPubDate())
+                                    .url(academicNotice.getUrl())
+                                    .build());
+                        }
+                        break;
+                    case "EventNotice":
+                        EventNotice eventNotice = eventNoticeRepository.findOneById(noticeId);
+                        if (eventNotice != null) {
+                            recentMarkedNoticeDtos.add(RecentMarkedNoticeDto.builder()
+                                    .category(category)
+                                    .title(eventNotice.getTitle())
+                                    .pubDate(eventNotice.getPubDate())
+                                    .url(eventNotice.getUrl())
+                                    .build());
+                        }
+                        break;
+                    case "CareerNotice":
+                        CareerNotice careerNotice = careerNoticeRepository.findOneById(noticeId);
+                        if (careerNotice != null) {
+                            recentMarkedNoticeDtos.add(RecentMarkedNoticeDto.builder()
+                                    .category(category)
+                                    .title(careerNotice.getTitle())
+                                    .pubDate(careerNotice.getPubDate())
+                                    .url(careerNotice.getUrl())
+                                    .build());
+                        }
+                        break;
+                    case "ScholarshipNotice":
+                        ScholarshipNotice scholarshipNotice = scholarshipNoticeRepository.findOneById(noticeId);
+                        if (scholarshipNotice != null) {
+                            recentMarkedNoticeDtos.add(RecentMarkedNoticeDto.builder()
+                                    .category(category)
+                                    .title(scholarshipNotice.getTitle())
+                                    .pubDate(scholarshipNotice.getPubDate())
+                                    .url(scholarshipNotice.getUrl())
+                                    .build());
+                        }
+                        break;
+                    case "StudentActsNotice":
+                        StudentActsNotice studentActsNotice = studentActsNoticeRepository.findOneById(noticeId);
+                        if (studentActsNotice != null) {
+                            recentMarkedNoticeDtos.add(RecentMarkedNoticeDto.builder()
+                                    .category(category)
+                                    .title(studentActsNotice.getTitle())
+                                    .pubDate(studentActsNotice.getPubDate())
+                                    .url(studentActsNotice.getUrl())
+                                    .build());
+                        }
+                        break;
+                    case "BiddingNotice":
+                        BiddingNotice biddingNotice = biddingNoticeRepository.findOneById(noticeId);
+                        if (biddingNotice != null) {
+                            recentMarkedNoticeDtos.add(RecentMarkedNoticeDto.builder()
+                                    .category(category)
+                                    .title(biddingNotice.getTitle())
+                                    .pubDate(biddingNotice.getPubDate())
+                                    .url(biddingNotice.getUrl())
+                                    .build());
+                        }
+                        break;
+                    case "SafetyNotice":
+                        SafetyNotice safetyNotice = safetyNoticeRepository.findOneById(noticeId);
+                        if (safetyNotice != null) {
+                            recentMarkedNoticeDtos.add(RecentMarkedNoticeDto.builder()
+                                    .category(category)
+                                    .title(safetyNotice.getTitle())
+                                    .pubDate(safetyNotice.getPubDate())
+                                    .url(safetyNotice.getUrl())
+                                    .build());
+                        }
+                        break;
+                    case "RevisionNotice":
+                        RevisionNotice revisionNotice = revisionNoticeRepository.findOneById(noticeId);
+                        if (revisionNotice != null) {
+                            recentMarkedNoticeDtos.add(RecentMarkedNoticeDto.builder()
+                                    .category(category)
+                                    .title(revisionNotice.getTitle())
+                                    .pubDate(revisionNotice.getPubDate())
+                                    .url(revisionNotice.getUrl())
+                                    .build());
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return recentMarkedNoticeDtos;
+    }
+
 }
