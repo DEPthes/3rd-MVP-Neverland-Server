@@ -55,7 +55,7 @@ public class BookmarkController {
         }
     }
 
-    @Operation(summary = "공지사항 즐겨찾기 내역 조회", description = "즐겨찾기 설정한 공지사항을 조회합니다")
+    @Operation(summary = "공지사항 즐겨찾기 내역 조회", description = "즐겨찾기 설정한 공지사항을 조회합니다. 즐겨찾기했던 순서대로 정렬됩니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "성공적으로 조회됨"),
             @ApiResponse(responseCode = "400", description = "잘못된 입력 값"),

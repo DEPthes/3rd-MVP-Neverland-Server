@@ -81,7 +81,7 @@ public class BookmarkService {
         boolean isMarked = true;
 
         // DormitoryNotice
-        List<Bookmark> bookmarks = bookmarkRepository.findByUserAndCategory(user, "DormitoryNotice");
+        List<Bookmark> bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "DormitoryNotice");
         List<DormitoryNoticeDTO> markedDormitoryNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
                 DormitoryNotice notice = dormitoryNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -102,7 +102,7 @@ public class BookmarkService {
         }
 
         // DormitoryEntryNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "DormitoryEntryNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "DormitoryEntryNotice");
         List<DormitoryEntryNoticeDTO> markedDormitoryEntryNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             DormitoryEntryNotice notice = dormitoryEntryNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -123,7 +123,7 @@ public class BookmarkService {
         }
 
         // LibraryNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "LibraryNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "LibraryNotice");
         List<LibraryNoticeDTO> markedLibraryNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             LibraryNotice notice = libraryNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -144,7 +144,7 @@ public class BookmarkService {
         }
 
         // TeachingNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "TeachingNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "TeachingNotice");
         List<TeachingNoticeDTO> markedTeachingNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             TeachingNotice notice = teachingNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -164,7 +164,7 @@ public class BookmarkService {
         }
 
         // JobTrainingNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "JobTrainingNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "JobTrainingNotice");
         List<JobTrainingNoticeDTO> markedJobTrainingNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             JobTrainingNotice notice = jobTrainingNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -188,7 +188,7 @@ public class BookmarkService {
         }
 
         // NormalNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "NormalNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "NormalNotice");
         List<NormalNoticeDTO> markedNormalNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             NormalNotice notice = normalNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -208,7 +208,7 @@ public class BookmarkService {
         }
 
         // AcademicNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "AcademicNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "AcademicNotice");
         List<AcademicNoticeDTO> markedAcademicNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             AcademicNotice notice = academicNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -228,7 +228,7 @@ public class BookmarkService {
         }
 
         // EventNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "EventNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "EventNotice");
         List<EventNoticeDTO> markedEventNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             EventNotice notice = eventNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -247,7 +247,7 @@ public class BookmarkService {
         }
 
         // CareerNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "CareerNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "CareerNotice");
         List<CareerNoticeDTO> markedCareerNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             CareerNotice notice = careerNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -266,7 +266,7 @@ public class BookmarkService {
         }
 
         // ScholarshipNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "ScholarshipNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "ScholarshipNotice");
         List<ScholarshipNoticeDTO> markedScholarshipNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             ScholarshipNotice notice = scholarshipNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -285,7 +285,7 @@ public class BookmarkService {
         }
 
         // StudentActsNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "StudentActsNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "StudentActsNotice");
         List<StudentActsNoticeDTO> markedStudentActsNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             StudentActsNotice notice = studentActsNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -304,7 +304,7 @@ public class BookmarkService {
         }
 
         // BiddingNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "BiddingNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "BiddingNotice");
         List<BiddingNoticeDTO> markedBiddingNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             BiddingNotice notice = biddingNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -323,7 +323,7 @@ public class BookmarkService {
         }
 
         // SafetyNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "SafetyNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "SafetyNotice");
         List<SafetyNoticeDTO> markedSafetyNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             SafetyNotice notice = safetyNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -342,7 +342,7 @@ public class BookmarkService {
         }
 
         // RevisionNotice
-        bookmarks = bookmarkRepository.findByUserAndCategory(user, "RevisionNotice");
+        bookmarks = bookmarkRepository.findByUserAndCategoryOrderByCreatedAtDesc(user, "RevisionNotice");
         List<RevisionNoticeDTO> markedRevisionNoticeDtos = new ArrayList<>();
         for (Bookmark bookmark : bookmarks){
             RevisionNotice notice = revisionNoticeRepository.findOneById(bookmark.getNoticeID());
@@ -361,6 +361,7 @@ public class BookmarkService {
         }
         return result;
     }
+
     public List<RecentMarkedNoticeDto> getRecentNotices(String ssaid) {
         List<RecentMarkedNoticeDto> recentMarkedNoticeDtos = new ArrayList<>();
         User user = userRepository.findBySsaid(ssaid)
