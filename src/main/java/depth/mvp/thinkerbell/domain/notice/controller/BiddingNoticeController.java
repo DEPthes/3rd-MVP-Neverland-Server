@@ -1,5 +1,6 @@
 package depth.mvp.thinkerbell.domain.notice.controller;
 
+import depth.mvp.thinkerbell.domain.common.pagination.PaginationDTO;
 import depth.mvp.thinkerbell.domain.notice.dto.BiddingNoticeDTO;
 import depth.mvp.thinkerbell.domain.notice.service.BiddingNoticeService;
 import depth.mvp.thinkerbell.global.dto.ApiResult;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/bidding")
@@ -30,10 +29,13 @@ public class BiddingNoticeController {
             @ApiResponse(responseCode = "500", description = "서버 오류 발생")
     })
     @GetMapping
-    public ApiResult<List<BiddingNoticeDTO>> getAllBiddingNotices(@RequestParam("ssaid") String ssaid) {
+    public ApiResult<PaginationDTO<BiddingNoticeDTO>> getAllBiddingNotices(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam("ssaid") String ssaid) {
         try {
-            List<BiddingNoticeDTO> notices = biddingNoticeService.getAllBiddingNotices(ssaid);
-            return ApiResult.ok(notices);
+            PaginationDTO<BiddingNoticeDTO> paginationDTO = biddingNoticeService.getAllBiddingNotices(page, size, ssaid);
+            return ApiResult.ok(paginationDTO);
         } catch (RuntimeException e) {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
         }

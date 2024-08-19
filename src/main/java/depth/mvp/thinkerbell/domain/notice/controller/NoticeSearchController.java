@@ -37,6 +37,5 @@ public class NoticeSearchController {
         } catch (RuntimeException e) {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
         }
-
     }
 }
