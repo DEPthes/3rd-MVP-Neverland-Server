@@ -1,5 +1,7 @@
 package depth.mvp.thinkerbell.domain.notice.controller;
 
+import depth.mvp.thinkerbell.domain.common.pagination.PaginationDTO;
+import depth.mvp.thinkerbell.domain.notice.dto.CareerNoticeDTO;
 import depth.mvp.thinkerbell.domain.notice.dto.RevisionNoticeDTO;
 import depth.mvp.thinkerbell.domain.notice.service.RevisionNoticeService;
 import depth.mvp.thinkerbell.global.dto.ApiResult;
@@ -30,10 +32,13 @@ public class RevisionNoticeController {
             @ApiResponse(responseCode = "500", description = "서버 오류 발생")
     })
     @GetMapping
-    public ApiResult<List<RevisionNoticeDTO>> getAllRevisionNotices(@RequestParam("ssaid") String ssaid) {
+    public ApiResult<PaginationDTO<RevisionNoticeDTO>> getAllRevisionNotices(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam("ssaid") String ssaid) {
         try {
-            List<RevisionNoticeDTO> notices = revisionNoticeService.getAllRevisionNotices(ssaid);
-            return ApiResult.ok(notices);
+            PaginationDTO<RevisionNoticeDTO> paginationDTO = revisionNoticeService.getAllRevisionNotices(page, size, ssaid);
+            return ApiResult.ok(paginationDTO);
         } catch (RuntimeException e) {
             return ApiResult.withError(ErrorCode.INTERNAL_SERVER_ERROR, null);
         }

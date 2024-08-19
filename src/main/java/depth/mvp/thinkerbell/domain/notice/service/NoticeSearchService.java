@@ -330,4 +330,109 @@ public class NoticeSearchService {
 
         return result;
     }
+
+    public Map<String, List<?>> getRecentNotices(String ssaid) {
+        Map<String, List<?>> result = new HashMap<>();
+        // USER가 북마크한 내역(id리스트) 가져오기
+        User user = userRepository.findBySsaid(ssaid)
+                .orElseThrow(() -> new NotFoundException("유저를 찾을 수 없습니다."));
+
+
+        // NormalNotice 검색 및 DTO 변환
+        List<NormalNoticeDTO> normalNotices = normalNoticeRepository.findTop3ByOrderByPubDateDesc()
+                .stream()
+                .map(notice -> {
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "NormalNotice", notice.getId(), user);
+                    return NormalNoticeDTO.builder()
+                            .id(notice.getId())
+                            .pubDate(notice.getPubDate())
+                            .title(notice.getTitle())
+                            .url(notice.getUrl())
+                            .marked(isMarked)
+                            .important(notice.isImportant())
+                            .build();
+                }).collect(Collectors.toList());
+        if (!normalNotices.isEmpty()) {
+            result.put("NormalNotice", normalNotices);
+        }
+
+        // AcademicNotice 검색 및 DTO 변환
+        List<AcademicNoticeDTO> academicNotices = academicNoticeRepository.findTop3ByOrderByPubDateDesc()
+                .stream()
+                .map(notice -> {
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "AcademicNotice", notice.getId(), user);
+                    return AcademicNoticeDTO.builder()
+                            .id(notice.getId())
+                            .pubDate(notice.getPubDate())
+                            .title(notice.getTitle())
+                            .url(notice.getUrl())
+                            .marked(isMarked)
+                            .important(notice.isImportant())
+                            .build();
+                }).collect(Collectors.toList());
+
+        if (!academicNotices.isEmpty()) {
+            result.put("AcademicNotice", academicNotices);
+        }
+
+        // EventNotice 검색 및 DTO 변환
+        List<EventNoticeDTO> eventNotices = eventNoticeRepository.findTop3ByOrderByPubDateDesc()
+                .stream()
+                .map(notice -> {
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "EventNotice", notice.getId(), user);
+                    return EventNoticeDTO.builder()
+                            .id(notice.getId())
+                            .pubDate(notice.getPubDate())
+                            .title(notice.getTitle())
+                            .url(notice.getUrl())
+                            .marked(isMarked)
+                            .build();
+                }).collect(Collectors.toList());
+
+        if (!eventNotices.isEmpty()) {
+            result.put("EventNotice", eventNotices);
+        }
+
+        // CareerNotice 검색 및 DTO 변환
+        List<CareerNoticeDTO> careerNotices = careerNoticeRepository.findTop3ByOrderByPubDateDesc()
+                .stream()
+                .map(notice -> {
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "CareerNotice", notice.getId(), user);
+                    return CareerNoticeDTO.builder()
+                            .id(notice.getId())
+                            .pubDate(notice.getPubDate())
+                            .title(notice.getTitle())
+                            .url(notice.getUrl())
+                            .marked(isMarked)
+                            .build();
+                }).collect(Collectors.toList());
+
+        if (!careerNotices.isEmpty()) {
+            result.put("CareerNotice", careerNotices);
+        }
+
+        // ScholarshipNotice 검색 및 DTO 변환
+        List<ScholarshipNoticeDTO> scholarshipNotices = scholarshipNoticeRepository.findTop3ByOrderByPubDateDesc()
+                .stream()
+                .map(notice -> {
+                    boolean isMarked = bookmarkRepository.existsByCategoryAndNoticeIDAndUser(
+                            "ScholarshipNotices", notice.getId(), user);
+                    return ScholarshipNoticeDTO.builder()
+                            .id(notice.getId())
+                            .pubDate(notice.getPubDate())
+                            .title(notice.getTitle())
+                            .url(notice.getUrl())
+                            .marked(isMarked)
+                            .build();
+                }).collect(Collectors.toList());
+
+        if (!scholarshipNotices.isEmpty()) {
+            result.put("ScholarshipNotices", scholarshipNotices);
+        }
+        return result;
+    }
 }
