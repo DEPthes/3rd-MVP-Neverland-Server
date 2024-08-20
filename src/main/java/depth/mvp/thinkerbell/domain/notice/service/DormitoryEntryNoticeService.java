@@ -11,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,13 +30,22 @@ public class DormitoryEntryNoticeService {
         // USER가 북마크한 내역(id리스트) 가져오기
         List<Long> bookmarkedNoticeIds = bookmarkService.getBookmark(ssaid,
                 this.getClass().getSimpleName().replace("Service", ""));
+
+        List<String> campuses;
+
+        if ("전체".equals(campus)){
+            campuses = Arrays.asList("인문", "자연", "공통");
+        } else {
+            campuses = Collections.singletonList(campus);
+        }
+
         if (page == 0) {
             // 첫 번째 페이지: 중요 공지사항 모두 가져오기
-            List<DormitoryEntryNotice> importantNotices = dormitoryEntryNoticeRepository.findAllByImportantTrueAndCampusOrderByPubDateDesc(campus);
+            List<DormitoryEntryNotice> importantNotices = dormitoryEntryNoticeRepository.findAllByImportantTrueAndCampusOrderByPubDateDesc(campuses);
 
             // 최신 공지사항 가져오기 (최대 10개)
             Pageable latestPageable = PageRequest.of(page, size);
-            Page<DormitoryEntryNotice> latestNoticesPage = dormitoryEntryNoticeRepository.findAllByImportantFalseAndCampusOrderByPubDateDesc(latestPageable, campus);
+            Page<DormitoryEntryNotice> latestNoticesPage = dormitoryEntryNoticeRepository.findAllByImportantFalseAndCampusOrderByPubDateDesc(latestPageable, campuses);
 
             // DTO 변환
             List<DormitoryEntryNoticeDTO> dtoList = importantNotices.stream()
@@ -77,7 +88,7 @@ public class DormitoryEntryNoticeService {
         } else {
             // 이후 페이지: 최신 공지사항만 페이지네이션
             Pageable pageable = PageRequest.of(page, size);
-            Page<DormitoryEntryNotice> resultPage = dormitoryEntryNoticeRepository.findAllByImportantFalseAndCampusOrderByPubDateDesc(pageable, campus);
+            Page<DormitoryEntryNotice> resultPage = dormitoryEntryNoticeRepository.findAllByImportantFalseAndCampusOrderByPubDateDesc(pageable, campuses);
 
             List<DormitoryEntryNoticeDTO> dtoList = resultPage.stream()
                     .map(notice -> {
@@ -95,7 +106,7 @@ public class DormitoryEntryNoticeService {
                     })
                     .collect(Collectors.toList());
 
-            int importantNoticesSize = dormitoryEntryNoticeRepository.findAllByImportantTrueAndCampusOrderByPubDateDesc(campus).size();
+            int importantNoticesSize = dormitoryEntryNoticeRepository.findAllByImportantTrueAndCampusOrderByPubDateDesc(campuses).size();
 
             return new PaginationDTO<>(
                     dtoList,
