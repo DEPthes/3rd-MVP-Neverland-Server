@@ -29,7 +29,9 @@ public class UserService {
                 //동일한 경우
                 return;
             } else {
-                userRepository.delete(user);
+               user.setFcmToken(token);
+               userRepository.save(user);
+               return;
             }
         }
 
