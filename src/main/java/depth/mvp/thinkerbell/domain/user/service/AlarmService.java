@@ -7,9 +7,11 @@ import depth.mvp.thinkerbell.domain.notice.repository.AllNoticeViewRepository;
 import depth.mvp.thinkerbell.domain.notice.repository.CrawlingNumRepository;
 import depth.mvp.thinkerbell.domain.user.dto.AlarmDto;
 import depth.mvp.thinkerbell.domain.user.entity.Alarm;
+import depth.mvp.thinkerbell.domain.user.entity.Bookmark;
 import depth.mvp.thinkerbell.domain.user.entity.Keyword;
 import depth.mvp.thinkerbell.domain.user.entity.User;
 import depth.mvp.thinkerbell.domain.user.repository.AlarmRepository;
+import depth.mvp.thinkerbell.domain.user.repository.BookmarkRepository;
 import depth.mvp.thinkerbell.domain.user.repository.KeywordRepository;
 import depth.mvp.thinkerbell.domain.user.repository.UserRepository;
 import jakarta.persistence.EntityManager;
@@ -38,6 +40,7 @@ public class AlarmService {
     private final UserRepository userRepository;
     private final FCMService fcmService;
     private final CategoryService categoryService;
+    private final BookmarkRepository bookmarkRepository;
 
     //전체 공지사항이 있는 뷰에서 키워드에 일치하는 공지를 찾아서 알람 테이블에 저장하는 기능
     //이때 최신으로 업데이트된 공지사항만 탐색한다.
@@ -142,7 +145,7 @@ public class AlarmService {
         }
     }
 
-    //보지 않은 알림이 있으면 true, 없으면 false
+    //보지 않은 알림이 있으면 true, 없으면 false, 키워드 별로
     public boolean hasUnviewedAlarm(String SSAID, String keyword){
         Optional<User> userOpt = userRepository.findBySsaid(SSAID);
 
@@ -150,6 +153,17 @@ public class AlarmService {
             User user = userOpt.get();
 
             return alarmRepository.existsByUserIdAndKeywordAndIsViewedFalse(user.getId(), keyword);
+        }
+        return false;
+    }
+
+    public boolean hasUnviewedAllAlarm(String SSAID){
+        Optional<User> userOpt = userRepository.findBySsaid(SSAID);
+
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+
+            return alarmRepository.existsByUserIdAndIsViewedFalse(user.getId());
         }
         return false;
     }
@@ -169,9 +183,20 @@ public class AlarmService {
             User user = userOpt.get();
 
             List<Alarm> alarms = alarmRepository.findALLByUserIdAndKeyword(user.getId(), keyword);
+
             List<AlarmDto> alarmDtos = new ArrayList<>();
 
             for (Alarm alarm : alarms) {
+                String noticeType = categoryService.getCategoryUpper(alarm.getNoticeType());
+
+                List<Bookmark> bookmark = bookmarkRepository.findByCategoryAndUserAndNoticeID(noticeType, user, alarm.getNoticeID());
+
+                boolean isMarked = true;
+
+                if (bookmark.isEmpty()) {
+                    isMarked = false;
+                }
+
                 if (Objects.equals(alarm.getNoticeType(), "job_training_notice")){
                     String pubDate = getNoticeDetail(alarm.getNoticeType(), alarm.getNoticeID());
 
@@ -180,6 +205,7 @@ public class AlarmService {
                             .title(alarm.getTitle())
                             .noticeType(categoryService.getCategoryNameInKorean(alarm.getNoticeType()))
                             .isViewed(alarm.getIsViewed())
+                            .isMarked(isMarked)
                             .Url(null)
                             .pubDate(pubDate)
                             .build();
@@ -196,6 +222,7 @@ public class AlarmService {
                             .title(alarm.getTitle())
                             .noticeType(categoryService.getCategoryNameInKorean(alarm.getNoticeType()))
                             .isViewed(alarm.getIsViewed())
+                            .isMarked(isMarked)
                             .Url(url)
                             .pubDate(pubDate)
                             .build();
