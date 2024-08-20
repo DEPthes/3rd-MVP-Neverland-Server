@@ -10,7 +10,8 @@ public class AlarmDto {
 
     private Long id;
     private String title;
-    private String noticeType;
+    private String noticeType_korean;
+    private String noticeType_english;
     private boolean isViewed;
     private boolean isMarked;
     private String Url;

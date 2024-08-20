@@ -14,6 +14,7 @@ import depth.mvp.thinkerbell.domain.user.repository.AlarmRepository;
 import depth.mvp.thinkerbell.domain.user.repository.BookmarkRepository;
 import depth.mvp.thinkerbell.domain.user.repository.KeywordRepository;
 import depth.mvp.thinkerbell.domain.user.repository.UserRepository;
+import depth.mvp.thinkerbell.global.converter.CaseConverter;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
@@ -203,7 +204,8 @@ public class AlarmService {
                     AlarmDto alarmDto = AlarmDto.builder()
                             .id(alarm.getId())
                             .title(alarm.getTitle())
-                            .noticeType(categoryService.getCategoryNameInKorean(alarm.getNoticeType()))
+                            .noticeType_korean(categoryService.getCategoryNameInKorean(alarm.getNoticeType()))
+                            .noticeType_english(CaseConverter.snakeToPascal(alarm.getNoticeType()))
                             .isViewed(alarm.getIsViewed())
                             .isMarked(isMarked)
                             .Url(null)
@@ -220,7 +222,8 @@ public class AlarmService {
                     AlarmDto alarmDto = AlarmDto.builder()
                             .id(alarm.getId())
                             .title(alarm.getTitle())
-                            .noticeType(categoryService.getCategoryNameInKorean(alarm.getNoticeType()))
+                            .noticeType_korean(categoryService.getCategoryNameInKorean(alarm.getNoticeType()))
+                            .noticeType_english(CaseConverter.snakeToPascal(alarm.getNoticeType()))
                             .isViewed(alarm.getIsViewed())
                             .isMarked(isMarked)
                             .Url(url)
