@@ -64,4 +64,28 @@ public class KeywordSaveService {
             return false;
         }
     }
+
+    public Boolean isDuplicateKeyword(String keyword, String SSAID) {
+        User user = userRepository.findBySsaid(SSAID)
+                .orElseThrow(() -> new IllegalArgumentException("주어진 ID로 사용자를 찾을 수 없습니다."));
+
+        if (keywordRepository.existsByKeywordAndUserId(keyword, user.getId())){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Boolean overNineKeyword(String SSAID) {
+        User user = userRepository.findBySsaid(SSAID)
+                .orElseThrow(() -> new IllegalArgumentException("주어진 ID로 사용자를 찾을 수 없습니다."));
+
+        long countKeyword = keywordRepository.countByUserId(user.getId());
+
+        if (countKeyword < 9){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
