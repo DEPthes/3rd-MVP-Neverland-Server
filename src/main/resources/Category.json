@@ -1,0 +1,15 @@
+{
+  "academic_notice": "AcademicNotice",
+  "bidding_notice": "BiddingNotice",
+  "career_notice": "CareerNotice",
+  "dormitory_entry_notice": "DormitoryEntryNotice",
+  "dormitory_notice": "DormitoryNotice",
+  "event_notice": "EventNotice",
+  "job_training_notice": "JobTrainingNotice",
+  "library_notice": "LibraryNotice",
+  "normal_notice": "NormalNotice",
+  "revision_notice": "RevisionNotice",
+  "scholarship_notice": "ScholarshipNotice",
+  "student_acts_notice": "StudentActsNotice",
+  "teaching_notice": "TeachingNotice"
+}

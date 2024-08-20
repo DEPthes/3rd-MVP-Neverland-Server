@@ -8,6 +8,8 @@ import java.util.List;
 public interface AlarmRepository extends JpaRepository<Alarm, Long> {
     boolean existsByUserIdAndKeywordAndIsViewedFalse(Long userId, String keyword);
 
+    boolean existsByUserIdAndIsViewedFalse(Long userId);
+
     List<Alarm> findALLByUserIdAndKeyword (Long userId, String keyword);
 
 }
