@@ -41,6 +41,14 @@ public class KeywordController {
             return ApiResult.withError(ErrorCode.INVALID_INPUT_VALUE, "키워드는 두글자 이상이여야 합니다.");
         }
 
+        if (keywordSaveService.isDuplicateKeyword(keyword, userSSAID)){
+            return ApiResult.withError(ErrorCode.INVALID_INPUT_VALUE, "이미 등록된 키워드 입니다.");
+        }
+
+        if (!keywordSaveService.overNineKeyword(userSSAID)){
+            return ApiResult.withError(ErrorCode.INVALID_INPUT_VALUE, "키워드는 9개까지 저장 가능합니다.");
+        }
+
         if (keywordSaveService.saveKeywordToDB(keyword, userSSAID)){
             return ApiResult.ok("키워드가 성공적으로 저장되었습니다.");
         } else {
