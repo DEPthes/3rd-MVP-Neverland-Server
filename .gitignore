@@ -39,3 +39,4 @@ out/
 .vscode/
 src/main/resources/firebase/neverland-thinkerbell-firebase-adminsdk-n4ik2-49baee872c.json
 src/main/java/depth/mvp/thinkerbell/global/config/FirebaseConfig.java
+./keep #for adding empty folder in github
