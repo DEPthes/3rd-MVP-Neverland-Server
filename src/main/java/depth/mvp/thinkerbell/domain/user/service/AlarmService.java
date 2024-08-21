@@ -76,7 +76,11 @@ public class AlarmService {
 
                             alarmRepository.save(alarm);
 
-                            fcmService.sendFCMMessage(alarm, keyword.getKeyword());
+                            Map<String, Object> noticeDetails = getNoticeDetails(alarm.getNoticeType(), alarm.getNoticeID());
+
+                            String url = (String) noticeDetails.get("url");
+
+                            fcmService.sendFCMMessage(alarm, keyword.getKeyword(), url);
                         } catch (Exception e) {
                             throw new RuntimeException("유저 알림을 저장하거나, fcm 알림을 보내는 도중 오류가 발생했습니다.", e);
                         }
@@ -109,7 +113,7 @@ public class AlarmService {
         }
     }
 
-    public void updateNoticeAndMatchKeywordTest(){
+    public void updateNoticeAndMatchKeywordTest(String ssaid, String key){
         List<CrawlingNum> crawlingNums;
 
         try {
@@ -119,6 +123,9 @@ public class AlarmService {
         }
 
         for (CrawlingNum crawlingNum : crawlingNums) {
+            crawlingNum.setNoticeID(0L);
+            crawlingNumRepository.save(crawlingNum);
+
             List<AllNoticesView> allNoticesViews;
 
             try {
@@ -136,7 +143,14 @@ public class AlarmService {
                         try{
                             Alarm alarm = new Alarm(notice.getId(), notice.getTableName(), keyword.getUser(), notice.getTitle(), keyword.getKeyword());
 
-                            fcmService.sendFCMMessage(alarm, keyword.getKeyword());
+                            Map<String, Object> noticeDetails = getNoticeDetails(alarm.getNoticeType(), alarm.getNoticeID());
+
+                            String url = (String) noticeDetails.get("url");
+
+                            if (ssaid.equals(keyword.getUser().getSsaid()) && key.equals(keyword.getKeyword())){
+                                fcmService.sendFCMMessage(alarm, keyword.getKeyword(), url);
+                            }
+
                         } catch (Exception e) {
                             throw new RuntimeException("유저 알림을 저장하거나, fcm 알림을 보내는 도중 오류가 발생했습니다.", e);
                         }
