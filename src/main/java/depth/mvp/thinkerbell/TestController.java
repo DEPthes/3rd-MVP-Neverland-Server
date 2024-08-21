@@ -17,7 +17,7 @@ public class TestController {
 
     @GetMapping("/test")
     public String test(){
-        return "배포 CD 테스트";
+        return "CI/CD 테스트";
     }
 
     @GetMapping("/alarm-test")
