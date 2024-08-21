@@ -14,7 +14,7 @@ public class FCMService {
 
     private final CategoryService categoryService;
 
-    public void sendFCMMessage(Alarm alarm, String keyword) {
+    public void sendFCMMessage(Alarm alarm, String keyword, String url) {
         try{
             String category = categoryService.getCategoryNameInKorean(alarm.getNoticeType());
             String cutTitle = cutTitle(alarm.getTitle(), 30);
@@ -25,7 +25,8 @@ public class FCMService {
             Message message = Message.builder()
                     .putData("title", "띵커벨")
                     .putData("body", messageBody)
-                    .putData("notification_id", UUID.randomUUID().toString()) // 고유한 ID
+                    .putData("notification_id", UUID.randomUUID().toString())// 고유한 ID
+                    .putData("url", url)
                     .setToken(alarm.getUser().getFcmToken())
                     .build();
 
