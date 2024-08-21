@@ -35,14 +35,22 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '17'
+        
+    # (4) YML 파일 생성
+    - name: Set YML, Config, Key
+      run: |
+          echo "${{ secrets.APPLICATION_YML }}" | base64 --decode > src/main/resources/application.yml
+          echo "${{ secrets.FIREBASE_CONFIG }}" | base64 --decode > src/main/java/depth/mvp/thinkerbell/global/config/FirebaseConfig.java
+          echo "${{ secrets.FIREBASE_KEY }}" | base64 --decode > src/main/resources/neverland-thinkerbell-firebase-adminsdk-n4ik2-49baee872c.json
 
-    # (4) Gradle build (Test 제외)
+
+    # (5) Gradle build (Test 제외)
     - name: Build with Gradle
       uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
       with:
         arguments: clean build -x test
 
-    # (5) AWS 인증 (IAM 사용자 Access Key, Secret Key 활용)
+    # (6) AWS 인증 (IAM 사용자 Access Key, Secret Key 활용)
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -50,7 +58,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
         aws-region: ${{ env.AWS_REGION }}
 
-    # (6) 빌드 결과물을 S3 버킷에 업로드
+    # (7) 빌드 결과물을 S3 버킷에 업로드
     - name: Upload to AWS S3
       run: |
         aws deploy push \
@@ -59,7 +67,7 @@ jobs:
           --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
           --source .
 
-    # (7) S3 버킷에 있는 파일을 대상으로 CodeDeploy 실행
+    # (8) S3 버킷에 있는 파일을 대상으로 CodeDeploy 실행
     - name: Deploy to AWS EC2 from S3
       run: |
         aws deploy create-deployment \
