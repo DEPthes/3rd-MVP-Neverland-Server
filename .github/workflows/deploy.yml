@@ -42,7 +42,8 @@ jobs:
           echo "${{ secrets.APPLICATION_YML }}" | base64 --decode > src/main/resources/application.yml
           echo "${{ secrets.FIREBASE_CONFIG }}" | base64 --decode > src/main/java/depth/mvp/thinkerbell/global/config/FirebaseConfig.java
           echo "${{ secrets.FIREBASE_KEY }}" | base64 --decode > src/main/resources/neverland-thinkerbell-firebase-adminsdk-n4ik2-49baee872c.json
-
+          ls -l src/main/resources
+          ls -l src/main/java/depth/mvp/thinkerbell/global/config
 
     # (5) Gradle build (Test 제외)
     - name: Build with Gradle
