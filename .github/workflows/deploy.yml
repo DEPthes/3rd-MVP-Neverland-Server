@@ -7,7 +7,7 @@ on:
 
 env:
   AWS_REGION: ap-northeast-2
-  S3_BUCKET_NAME: thinkerbell-cicd-s3-bucket
+  S3_BUCKET_NAME: thinkerbell-cicd-bucket
   CODE_DEPLOY_APPLICATION_NAME: thinkerbell-codedeploy-app
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: thinkerbell-codedeploy-group
 
